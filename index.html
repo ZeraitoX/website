@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube ログインとシステム情報</title>
+  <title>システム情報とVPNチェック</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,24 +26,31 @@
         <h3>あなたのIPアドレス</h3>
         <p>IPv4: <span id="ipv4">取得中...</span></p>
         <p>IPv6: <span id="ipv6">取得中...</span></p>
+        <p>プロバイダー: <span id="provider">取得中...</span></p>
+        <p>VPN使用: <span id="vpn-status">確認中...</span></p>
         <button onclick="getIPAddress()" class="btn">IPアドレスを取得</button>
       </div>
 
-      <!-- ブラウザとOS情報表示 -->
+      <!-- システム情報 -->
       <div class="system-info">
         <h3>システム情報</h3>
         <p>ブラウザ: <span id="browser">取得中...</span></p>
         <p>OS: <span id="os">取得中...</span></p>
+        <p>CPUコア数: <span id="cpu">取得中...</span></p>
+        <p>メモリ容量: <span id="memory">取得中...</span></p>
+        <p>GPU情報: <span id="gpu">取得中...</span></p>
         <button onclick="getSystemInfo()" class="btn">システム情報を取得</button>
       </div>
     </div>
   </div>
 
   <script>
-    // IPアドレスを取得する関数
+    // IPアドレスとVPNチェック
     async function getIPAddress() {
       const ipv4Element = document.getElementById('ipv4');
       const ipv6Element = document.getElementById('ipv6');
+      const providerElement = document.getElementById('provider');
+      const vpnStatusElement = document.getElementById('vpn-status');
 
       try {
         // IPv4取得
@@ -55,17 +62,34 @@
         const ipv6Response = await fetch('https://api64.ipify.org?format=json');
         const ipv6Data = await ipv6Response.json();
         ipv6Element.textContent = ipv6Data.ip;
+
+        // プロバイダー情報取得（ipinfo.io API）
+        const ipinfoResponse = await fetch(`https://ipinfo.io/${ipv4Data.ip}/json?token=YOUR_API_KEY`);
+        const ipinfoData = await ipinfoResponse.json();
+        providerElement.textContent = ipinfoData.org || '取得できませんでした';
+
+        // VPNチェック
+        if (ipinfoData.org && ipinfoData.org.toLowerCase().includes('vpn')) {
+          vpnStatusElement.textContent = '使用中';
+        } else {
+          vpnStatusElement.textContent = '使用していません';
+        }
       } catch (error) {
         ipv4Element.textContent = '取得失敗';
         ipv6Element.textContent = '取得失敗';
+        providerElement.textContent = '取得失敗';
+        vpnStatusElement.textContent = '取得失敗';
         console.error('IP取得エラー:', error);
       }
     }
 
-    // ブラウザとOS情報を取得する関数
+    // システム情報取得
     function getSystemInfo() {
       const browserElement = document.getElementById('browser');
       const osElement = document.getElementById('os');
+      const cpuElement = document.getElementById('cpu');
+      const memoryElement = document.getElementById('memory');
+      const gpuElement = document.getElementById('gpu');
       
       // ユーザーエージェント情報を取得
       const userAgent = navigator.userAgent;
@@ -98,9 +122,21 @@
         os = "iOS";
       }
 
+      // CPUコア数
+      const cpuCores = navigator.hardwareConcurrency || '取得できません';
+
+      // メモリ容量
+      const memorySize = navigator.deviceMemory || '取得できません';
+
+      // GPU情報（簡易的な取得）
+      let gpuInfo = "WebGLに対応するGPUが検出されましたが、詳細は取得できません。";
+
       // 結果を画面に表示
       browserElement.textContent = browser;
       osElement.textContent = os;
+      cpuElement.textContent = cpuCores;
+      memoryElement.textContent = memorySize + 'GB';
+      gpuElement.textContent = gpuInfo;
     }
   </script>
 </body>
