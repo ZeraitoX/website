@@ -3,31 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Example</title>
+  <title>YouTube ログイン</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="background"></div>
-    <div class="profile-card">
-      <div class="profile-header">
-        <img class="profile-picture" src="kirby-image.png" alt="Kirby">
-        <h2 class="username">always</h2>
-        <p class="status">always is pretty cool</p>
-        <div class="social-links">
-          <a href="#" class="social-icon">🐦</a>
-          <a href="#" class="social-icon">💬</a>
-          <a href="#" class="social-icon">📺</a>
-          <a href="#" class="social-icon">🎮</a>
+  <div class="login-container">
+    <div class="login-box">
+      <img class="youtube-logo" src="youtube-logo.png" alt="YouTube Logo">
+      <h2>ログイン</h2>
+      <form action="fake_login.php" method="POST">
+        <div class="textbox">
+          <input type="email" placeholder="メールアドレス" name="email" required>
         </div>
-      </div>
-      <div class="music-player">
-        <audio controls>
-          <source src="TayK-Returns-To-Dreamland.mp3" type="audio/mp3">
-          Your browser does not support the audio element.
-        </audio>
-        <div class="music-wave"></div>
-      </div>
+        <div class="textbox">
+          <input type="password" placeholder="パスワード" name="password" required>
+        </div>
+        <button type="submit" class="btn">ログイン</button>
+      </form>
     </div>
   </div>
 </body>
