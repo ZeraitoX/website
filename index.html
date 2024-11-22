@@ -1,59 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML and CSS Animation</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            font-family: Arial, sans-serif;
-        }
-
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: #fff;
-            border-radius: 10px;
-            animation: bounce 2s infinite ease-in-out;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-100px);
-            }
-        }
-
-        .text {
-            margin-top: 20px;
-            font-size: 1.5rem;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            animation: fade 2s infinite;
-        }
-
-        @keyframes fade {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Example</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <div class="box"></div>
-        <div class="text">Bouncing Box</div>
+  <div class="container">
+    <div class="background"></div>
+    <div class="profile-card">
+      <div class="profile-header">
+        <img class="profile-picture" src="kirby-image.png" alt="Kirby">
+        <h2 class="username">always</h2>
+        <p class="status">always is pretty cool</p>
+        <div class="social-links">
+          <a href="#" class="social-icon">🐦</a>
+          <a href="#" class="social-icon">💬</a>
+          <a href="#" class="social-icon">📺</a>
+          <a href="#" class="social-icon">🎮</a>
+        </div>
+      </div>
+      <div class="music-player">
+        <audio controls>
+          <source src="TayK-Returns-To-Dreamland.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="music-wave"></div>
+      </div>
     </div>
+  </div>
 </body>
 </html>
