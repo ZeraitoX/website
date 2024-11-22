@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube ログイン</title>
+  <title>YouTube ログインとIPアドレス</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,7 +20,36 @@
         </div>
         <button type="submit" class="btn">ログイン</button>
       </form>
+      <div class="output">
+        <h3>あなたのIPアドレス</h3>
+        <p>IPv4: <span id="ipv4">取得中...</span></p>
+        <p>IPv6: <span id="ipv6">取得中...</span></p>
+        <button onclick="getIPAddress()" class="btn">IPアドレスを取得</button>
+      </div>
     </div>
   </div>
+
+  <script>
+    async function getIPAddress() {
+      const ipv4Element = document.getElementById('ipv4');
+      const ipv6Element = document.getElementById('ipv6');
+
+      try {
+        // IPv4取得
+        const ipv4Response = await fetch('https://api.ipify.org?format=json');
+        const ipv4Data = await ipv4Response.json();
+        ipv4Element.textContent = ipv4Data.ip;
+
+        // IPv6取得
+        const ipv6Response = await fetch('https://api64.ipify.org?format=json');
+        const ipv6Data = await ipv6Response.json();
+        ipv6Element.textContent = ipv6Data.ip;
+      } catch (error) {
+        ipv4Element.textContent = '取得失敗';
+        ipv6Element.textContent = '取得失敗';
+        console.error('IP取得エラー:', error);
+      }
+    }
+  </script>
 </body>
 </html>
