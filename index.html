@@ -44,6 +44,13 @@
     </div>
   </div>
 
+  <!-- 広告のスクリプト読み込み -->
+  <script async src="//pl25082341.profitablecpmrate.com/aa/3e/93/aa3e9339a9b40453e2e60b8ab027c4d4.js"></script>
+  <script async src="//pl25082392.profitablecpmrate.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
+
+  <!-- 広告のコンテナ -->
+  <div id="container-2230f4de6975fa6ecbeefbbc53411cf4"></div>
+
   <script>
     // IPアドレスとVPNチェック
     async function getIPAddress() {
@@ -53,22 +60,21 @@
       const vpnStatusElement = document.getElementById('vpn-status');
 
       try {
-        // IPv4取得
-        const ipv4Response = await fetch('https://api.ipify.org?format=json');
-        const ipv4Data = await ipv4Response.json();
-        ipv4Element.textContent = ipv4Data.ip;
+        // IPv4とIPv6を一括で取得
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const ipv4 = ipData.ip;
 
-        // IPv6取得
-        const ipv6Response = await fetch('https://api64.ipify.org?format=json');
-        const ipv6Data = await ipv6Response.json();
-        ipv6Element.textContent = ipv6Data.ip;
+        // IPv4とIPv6を表示
+        ipv4Element.textContent = ipv4;
+        ipv6Element.textContent = '未対応'; // IPv6がサポートされていない場合
 
         // プロバイダー情報取得（ipinfo.io API）
-        const ipinfoResponse = await fetch(`https://ipinfo.io/${ipv4Data.ip}/json?token=YOUR_API_KEY`);
+        const ipinfoResponse = await fetch(`https://ipinfo.io/${ipv4}/json?token=YOUR_API_KEY`);
         const ipinfoData = await ipinfoResponse.json();
         providerElement.textContent = ipinfoData.org || '取得できませんでした';
 
-        // VPNチェック
+        // VPNチェック（簡易版、VPN関連のIPリストが必要）
         if (ipinfoData.org && ipinfoData.org.toLowerCase().includes('vpn')) {
           vpnStatusElement.textContent = '使用中';
         } else {
@@ -128,8 +134,8 @@
       // メモリ容量
       const memorySize = navigator.deviceMemory || '取得できません';
 
-      // GPU情報（簡易的な取得）
-      let gpuInfo = "WebGLに対応するGPUが検出されましたが、詳細は取得できません。";
+      // GPU情報（WebGLを利用）
+      let gpuInfo = "WebGL対応GPU情報: " + (getGPUInfo() || "取得できません");
 
       // 結果を画面に表示
       browserElement.textContent = browser;
@@ -138,11 +144,21 @@
       memoryElement.textContent = memorySize + 'GB';
       gpuElement.textContent = gpuInfo;
     }
-  </script>
-<script type='text/javascript' src='//pl25082341.profitablecpmrate.com/aa/3e/93/aa3e9339a9b40453e2e60b8ab027c4d4.js'></script>
- <script async data-cfasync="false" src="//pl25082392.profitablecpmrate.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
- <div id="container-2230f4de6975fa6ecbeefbbc53411cf4"></div>
 
-  
+    // GPU情報を取得するための関数
+    function getGPUInfo() {
+      // WebGLコンテキストからGPU情報を取得
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl");
+      if (!gl) return null;
+
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debugInfo) {
+        return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      }
+      return null;
+    }
+  </script>
+
 </body>
 </html>
