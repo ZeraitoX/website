@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube ログインとIPアドレス</title>
+  <title>YouTube ログインとシステム情報</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,16 +20,27 @@
         </div>
         <button type="submit" class="btn">ログイン</button>
       </form>
+
+      <!-- IPアドレスとシステム情報表示 -->
       <div class="output">
         <h3>あなたのIPアドレス</h3>
         <p>IPv4: <span id="ipv4">取得中...</span></p>
         <p>IPv6: <span id="ipv6">取得中...</span></p>
         <button onclick="getIPAddress()" class="btn">IPアドレスを取得</button>
       </div>
+
+      <!-- ブラウザとOS情報表示 -->
+      <div class="system-info">
+        <h3>システム情報</h3>
+        <p>ブラウザ: <span id="browser">取得中...</span></p>
+        <p>OS: <span id="os">取得中...</span></p>
+        <button onclick="getSystemInfo()" class="btn">システム情報を取得</button>
+      </div>
     </div>
   </div>
 
   <script>
+    // IPアドレスを取得する関数
     async function getIPAddress() {
       const ipv4Element = document.getElementById('ipv4');
       const ipv6Element = document.getElementById('ipv6');
@@ -49,6 +60,47 @@
         ipv6Element.textContent = '取得失敗';
         console.error('IP取得エラー:', error);
       }
+    }
+
+    // ブラウザとOS情報を取得する関数
+    function getSystemInfo() {
+      const browserElement = document.getElementById('browser');
+      const osElement = document.getElementById('os');
+      
+      // ユーザーエージェント情報を取得
+      const userAgent = navigator.userAgent;
+
+      // ブラウザ情報
+      let browser = "不明";
+      if (userAgent.indexOf("Chrome") > -1) {
+        browser = "Google Chrome";
+      } else if (userAgent.indexOf("Firefox") > -1) {
+        browser = "Mozilla Firefox";
+      } else if (userAgent.indexOf("Safari") > -1) {
+        browser = "Safari";
+      } else if (userAgent.indexOf("Edge") > -1) {
+        browser = "Microsoft Edge";
+      } else if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) {
+        browser = "Internet Explorer";
+      }
+
+      // OS情報
+      let os = "不明";
+      if (userAgent.indexOf("Windows NT") > -1) {
+        os = "Windows";
+      } else if (userAgent.indexOf("Macintosh") > -1) {
+        os = "MacOS";
+      } else if (userAgent.indexOf("Linux") > -1) {
+        os = "Linux";
+      } else if (userAgent.indexOf("Android") > -1) {
+        os = "Android";
+      } else if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("iPad") > -1) {
+        os = "iOS";
+      }
+
+      // 結果を画面に表示
+      browserElement.textContent = browser;
+      osElement.textContent = os;
     }
   </script>
 </body>
