@@ -51,16 +51,27 @@
   </div>
 
   <script>
-    // IPアドレスを取得する関数
+    // 修正済み IP アドレス取得関数
     async function getIPAddress() {
       try {
-        const response = await fetch("https://ipapi.co/json/");
-        const data = await response.json();
+        // IPv4 を取得
+        const ipv4Response = await fetch("https://api.ipify.org?format=json");
+        const ipv4Data = await ipv4Response.json();
+        document.getElementById("ipv4").textContent = ipv4Data.ip || "取得失敗";
 
-        document.getElementById("ipv4").textContent = data.ip || "取得失敗";
-        document.getElementById("ipv6").textContent = data.ip_v6 || "未対応";
-        document.getElementById("provider").textContent = data.org || "取得失敗";
-        document.getElementById("vpn-status").textContent = data.security?.vpn ? "使用中" : "未使用";
+        // IPv6 を取得
+        const ipv6Response = await fetch("https://api64.ipify.org?format=json");
+        const ipv6Data = await ipv6Response.json();
+        document.getElementById("ipv6").textContent = ipv6Data.ip || "未対応";
+
+        // プロバイダー情報取得
+        const providerResponse = await fetch("https://ipapi.co/json/");
+        const providerData = await providerResponse.json();
+        document.getElementById("provider").textContent = providerData.org || "取得失敗";
+
+        // VPN使用確認
+        const vpnStatus = providerData.security?.vpn;
+        document.getElementById("vpn-status").textContent = vpnStatus ? "使用中" : "未使用";
       } catch (error) {
         console.error("IPアドレスの取得中にエラー:", error);
         document.getElementById("ipv4").textContent = "取得失敗";
@@ -73,8 +84,9 @@
     // システム情報を取得する関数
     async function getSystemInfo() {
       try {
-        // ブラウザ情報
-        document.getElementById("browser").textContent = navigator.userAgent;
+        // ブラウザ情報を明確に取得
+        const browserInfo = getBrowserInfo();
+        document.getElementById("browser").textContent = browserInfo;
 
         // OS情報
         const osInfo = navigator.userAgentData?.platform || navigator.platform || "取得失敗";
@@ -104,22 +116,34 @@
       }
     }
 
+    // ブラウザ情報を特定する関数
+    function getBrowserInfo() {
+      const ua = navigator.userAgent;
+
+      if (ua.includes("Firefox")) {
+        return "Mozilla Firefox";
+      } else if (ua.includes("Edg/")) {
+        return "Microsoft Edge";
+      } else if (ua.includes("Chrome") && !ua.includes("Chromium")) {
+        return "Google Chrome";
+      } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
+        return "Apple Safari";
+      } else if (ua.includes("OPR") || ua.includes("Opera")) {
+        return "Opera";
+      } else if (ua.includes("Chromium")) {
+        return "Chromium";
+      } else {
+        return "不明なブラウザ";
+      }
+    }
+
     // CPUモデルを検出する関数
     async function detectCpuModel() {
       try {
         // userAgent解析
         const userAgent = navigator.userAgent;
-
-        // AMD、Intel、Apple CPUを区別する正規表現
-        const cpuMatch = userAgent.match(/(AMD|Intel|Apple|ARM|Snapdragon|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
-
+        const cpuMatch = userAgent.match(/(Intel|AMD|Apple|ARM|Snapdragon|M[1-9]|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
         if (cpuMatch) {
-          // もしApple CPU（Apple Siliconなど）が含まれている場合、その場合は明確にAppleを返す
-          if (userAgent.includes("Mac OS X") && userAgent.includes("Apple")) {
-            return "Apple Silicon (M1/M2)";
-          }
-
-          // 他のCPUモデル（AMDやIntel）をそのまま返す
           return cpuMatch[0];
         }
 
