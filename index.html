@@ -26,9 +26,15 @@
         <h3>あなたのIPアドレス</h3>
         <p>IPv4: <span id="ipv4">取得中...</span></p>
         <p>IPv6: <span id="ipv6">取得中...</span></p>
-        <p>プロバイダー: <span id="provider">取得中...</span></p>
-        <p>VPN使用: <span id="vpn-status">確認中...</span></p>
         <button onclick="getIPAddress()" class="btn">IPアドレスを取得</button>
+
+        <!-- プロバイダー情報 -->
+        <h3>プロバイダー情報</h3>
+        <p>プロバイダー: <span id="provider">取得中...</span></p>
+
+        <!-- VPN状態 -->
+        <h3>VPN使用状態</h3>
+        <p>VPN使用: <span id="vpn-status">確認中...</span></p>
       </div>
 
       <!-- システム情報 -->
@@ -43,7 +49,7 @@
   </div>
 
   <script>
-    // 修正済み IP アドレス取得関数
+    // IP アドレス取得関数
     async function getIPAddress() {
       try {
         // IPv4 を取得
@@ -56,16 +62,11 @@
         const ipv6Data = await ipv6Response.json();
         document.getElementById("ipv6").textContent = ipv6Data.ip || "未対応";
 
-        // プロバイダー情報とVPN状態を取得
-        const providerResponse = await fetch("https://ipinfo.io?token=YOUR_API_TOKEN");
-        const providerData = await providerResponse.json();
+        // プロバイダー情報を取得
+        await getProviderInfo();
 
-        // プロバイダー情報
-        document.getElementById("provider").textContent = providerData.org || "取得失敗";
-
-        // VPN使用確認
-        const vpnStatus = await detectVpn(providerData);
-        document.getElementById("vpn-status").textContent = vpnStatus ? "接続中" : "未接続";
+        // VPN状態をチェック
+        await checkVpnStatus();
       } catch (error) {
         console.error("IPアドレスの取得中にエラー:", error);
         document.getElementById("ipv4").textContent = "取得失敗";
@@ -75,41 +76,48 @@
       }
     }
 
-    // VPN判定ロジック
-    async function detectVpn(data) {
+    // プロバイダー情報を取得する関数
+    async function getProviderInfo() {
       try {
-        const ipInfo = await fetch(`https://ipinfo.io/${data.ip}/json?token=YOUR_API_TOKEN`);
-        const ipDetails = await ipInfo.json();
+        const providerResponse = await fetch("http://ip-api.com/json/");
+        const providerData = await providerResponse.json();
 
-        // プロバイダー情報とVPNの特徴に基づく簡易判定
-        if (ipDetails.org && (ipDetails.org.includes("VPN") || ipDetails.org.includes("Hosting") || ipDetails.org.includes("Cloud"))) {
-          return true; // VPNを使用している可能性
-        }
-
-        // 地理的な不一致（国や都市の情報を比較する）
-        const userLocation = await getGeolocation();
-        if (userLocation && ipDetails.country !== userLocation.country) {
-          return true; // 地理的な不一致があればVPNの可能性
-        }
-
-        return false;
+        // プロバイダー情報
+        document.getElementById("provider").textContent = providerData.org || "取得失敗";
       } catch (error) {
-        console.error("VPN判定中にエラー:", error);
-        return false;
+        console.error("プロバイダー情報の取得中にエラー:", error);
+        document.getElementById("provider").textContent = "取得失敗";
       }
     }
 
-    // ユーザーの位置情報を取得する関数
-    function getGeolocation() {
-      return new Promise((resolve) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            resolve(position.coords);
-          });
-        } else {
-          resolve(null);
-        }
-      });
+    // VPN状態をチェックする関数
+    async function checkVpnStatus() {
+      try {
+        const providerResponse = await fetch("http://ip-api.com/json/");
+        const providerData = await providerResponse.json();
+
+        // VPN使用確認
+        const vpnStatus = detectVpn(providerData);
+        document.getElementById("vpn-status").textContent = vpnStatus ? "接続中" : "未接続";
+      } catch (error) {
+        console.error("VPN状態の確認中にエラー:", error);
+        document.getElementById("vpn-status").textContent = "確認失敗";
+      }
+    }
+
+    // VPN判定ロジック
+    function detectVpn(data) {
+      // IP情報をもとにVPNかどうかを判定（簡易例）
+      if (data && data.org && (data.org.includes("VPN") || data.org.includes("Cloud"))) {
+        return true;
+      }
+
+      // 国コードで判定（例: VPNサーバーによる地理的な異常値を検出）
+      if (data && data.country && ["RU", "CN", "IR"].includes(data.country)) {
+        return true;
+      }
+
+      return false;
     }
 
     // システム情報を取得する関数
