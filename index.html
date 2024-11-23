@@ -109,8 +109,17 @@
       try {
         // userAgent解析
         const userAgent = navigator.userAgent;
-        const cpuMatch = userAgent.match(/(Intel|AMD|Apple|ARM|Snapdragon|M[1-9]|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
+
+        // AMD、Intel、Apple CPUを区別する正規表現
+        const cpuMatch = userAgent.match(/(AMD|Intel|Apple|ARM|Snapdragon|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
+
         if (cpuMatch) {
+          // もしApple CPU（Apple Siliconなど）が含まれている場合、その場合は明確にAppleを返す
+          if (userAgent.includes("Mac OS X") && userAgent.includes("Apple")) {
+            return "Apple Silicon (M1/M2)";
+          }
+
+          // 他のCPUモデル（AMDやIntel）をそのまま返す
           return cpuMatch[0];
         }
 
