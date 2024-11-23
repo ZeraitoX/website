@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>システム情報とVPNチェック</title>
   <link rel="stylesheet" href="styles.css">
-
-  <!-- 広告のスクリプト読み込み -->
-  <script async src="//pl25082341.profitablecpmrate.com/aa/3e/93/aa3e9339a9b40453e2e60b8ab027c4d4.js"></script>
-  <script async src="//pl25082392.profitablecpmrate.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
-  <script async src="//gappoison.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
 </head>
 <body>
   <div class="login-container">
@@ -41,9 +36,6 @@
         <h3>システム情報</h3>
         <p>ブラウザ: <span id="browser">取得中...</span></p>
         <p>OS: <span id="os">取得中...</span></p>
-        <p>CPUコア数: <span id="cpu-cores">取得中...</span></p>
-        <p>CPUモデル: <span id="cpu-model">取得中...</span></p>
-        <p>メモリ容量: <span id="memory">取得中...</span></p>
         <p>GPU情報: <span id="gpu">取得中...</span></p>
         <button onclick="getSystemInfo()" class="btn">システム情報を取得</button>
       </div>
@@ -64,14 +56,16 @@
         const ipv6Data = await ipv6Response.json();
         document.getElementById("ipv6").textContent = ipv6Data.ip || "未対応";
 
-        // プロバイダー情報取得
-        const providerResponse = await fetch("https://ipapi.co/json/");
+        // プロバイダー情報とVPN状態を取得
+        const providerResponse = await fetch("https://ipinfo.io?token=YOUR_API_TOKEN");
         const providerData = await providerResponse.json();
+
+        // プロバイダー情報
         document.getElementById("provider").textContent = providerData.org || "取得失敗";
 
         // VPN使用確認
-        const vpnStatus = providerData.security?.vpn;
-        document.getElementById("vpn-status").textContent = vpnStatus ? "使用中" : "未使用";
+        const vpnStatus = await detectVpn(providerData);
+        document.getElementById("vpn-status").textContent = vpnStatus ? "接続中" : "未接続";
       } catch (error) {
         console.error("IPアドレスの取得中にエラー:", error);
         document.getElementById("ipv4").textContent = "取得失敗";
@@ -79,6 +73,43 @@
         document.getElementById("provider").textContent = "取得失敗";
         document.getElementById("vpn-status").textContent = "確認失敗";
       }
+    }
+
+    // VPN判定ロジック
+    async function detectVpn(data) {
+      try {
+        const ipInfo = await fetch(`https://ipinfo.io/${data.ip}/json?token=YOUR_API_TOKEN`);
+        const ipDetails = await ipInfo.json();
+
+        // プロバイダー情報とVPNの特徴に基づく簡易判定
+        if (ipDetails.org && (ipDetails.org.includes("VPN") || ipDetails.org.includes("Hosting") || ipDetails.org.includes("Cloud"))) {
+          return true; // VPNを使用している可能性
+        }
+
+        // 地理的な不一致（国や都市の情報を比較する）
+        const userLocation = await getGeolocation();
+        if (userLocation && ipDetails.country !== userLocation.country) {
+          return true; // 地理的な不一致があればVPNの可能性
+        }
+
+        return false;
+      } catch (error) {
+        console.error("VPN判定中にエラー:", error);
+        return false;
+      }
+    }
+
+    // ユーザーの位置情報を取得する関数
+    function getGeolocation() {
+      return new Promise((resolve) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            resolve(position.coords);
+          });
+        } else {
+          resolve(null);
+        }
+      });
     }
 
     // システム情報を取得する関数
@@ -92,26 +123,12 @@
         const osInfo = navigator.userAgentData?.platform || navigator.platform || "取得失敗";
         document.getElementById("os").textContent = osInfo;
 
-        // CPUコア数
-        document.getElementById("cpu-cores").textContent = navigator.hardwareConcurrency || "取得失敗";
-
-        // CPUモデル
-        const cpuModel = await detectCpuModel();
-        document.getElementById("cpu-model").textContent = cpuModel || "詳細不明";
-
-        // メモリ情報
-        const memory = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "取得失敗";
-        document.getElementById("memory").textContent = memory;
-
         // GPU情報
         const gpuInfo = getGpuInfo();
         document.getElementById("gpu").textContent = gpuInfo || "取得失敗";
       } catch (error) {
         console.error("システム情報の取得中にエラー:", error);
         document.getElementById("os").textContent = "取得失敗";
-        document.getElementById("cpu-cores").textContent = "取得失敗";
-        document.getElementById("cpu-model").textContent = "取得失敗";
-        document.getElementById("memory").textContent = "取得失敗";
         document.getElementById("gpu").textContent = "取得失敗";
       }
     }
@@ -134,42 +151,6 @@
         return "Chromium";
       } else {
         return "不明なブラウザ";
-      }
-    }
-
-    // CPUモデルを検出する関数
-    async function detectCpuModel() {
-      try {
-        // userAgent解析
-        const userAgent = navigator.userAgent;
-        const cpuMatch = userAgent.match(/(Intel|AMD|Apple|ARM|Snapdragon|M[1-9]|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
-        if (cpuMatch) {
-          return cpuMatch[0];
-        }
-
-        // Web Workerを使った速度ベンチマーク
-        if (window.Worker) {
-          return new Promise((resolve) => {
-            const worker = new Worker(URL.createObjectURL(new Blob([`
-              onmessage = function() {
-                let count = 0;
-                while (count < 1e7) count++;
-                postMessage(performance.now());
-              };
-            `], { type: 'text/javascript' })));
-
-            const startTime = performance.now();
-            worker.onmessage = (e) => {
-              const elapsed = performance.now() - startTime;
-              worker.terminate();
-              resolve(elapsed < 50 ? "ハイエンドCPU" : elapsed < 150 ? "ミドルレンジCPU" : "ローエンドCPU");
-            };
-            worker.postMessage(null);
-          });
-        }
-      } catch (error) {
-        console.error("CPUモデルの検出中にエラー:", error);
-        return null;
       }
     }
 
