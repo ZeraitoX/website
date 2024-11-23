@@ -48,7 +48,8 @@
         <h3>システム情報</h3>
         <p>ブラウザ: <span id="browser">取得中...</span></p>
         <p>OS: <span id="os">取得中...</span></p>
-        <p>CPUコア数: <span id="cpu">取得中...</span></p>
+        <p>CPUコア数: <span id="cpu-cores">取得中...</span></p>
+        <p>CPUモデル: <span id="cpu-model">取得中...</span></p>
         <p>メモリ容量: <span id="memory">取得中...</span></p>
         <p>GPU情報: <span id="gpu">取得中...</span></p>
         <button onclick="getSystemInfo()" class="btn">システム情報を取得</button>
@@ -62,7 +63,12 @@
       try {
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
+
+        // IPv4とIPv6の表示
         document.getElementById("ipv4").textContent = data.ip || "取得失敗";
+        document.getElementById("ipv6").textContent = data.ip_v6 || "未対応";
+
+        // プロバイダー情報
         document.getElementById("provider").textContent = data.org || "取得失敗";
 
         // 簡易VPNチェック
@@ -70,6 +76,10 @@
         document.getElementById("vpn-status").textContent = vpnStatus;
       } catch (error) {
         console.error(error);
+        document.getElementById("ipv4").textContent = "取得失敗";
+        document.getElementById("ipv6").textContent = "取得失敗";
+        document.getElementById("provider").textContent = "取得失敗";
+        document.getElementById("vpn-status").textContent = "確認失敗";
       }
     }
 
@@ -79,11 +89,21 @@
         // ブラウザ情報
         document.getElementById("browser").textContent = navigator.userAgent;
 
-        // OS情報
-        document.getElementById("os").textContent = navigator.platform;
+        // OS情報の取得（新しい方法：navigator.userAgentData を使用）
+        if (navigator.userAgentData && navigator.userAgentData.platform) {
+          document.getElementById("os").textContent = navigator.userAgentData.platform;
+        } else if (navigator.platform) {
+          document.getElementById("os").textContent = navigator.platform;
+        } else {
+          document.getElementById("os").textContent = "取得失敗";
+        }
 
         // CPUコア数
-        document.getElementById("cpu").textContent = navigator.hardwareConcurrency || "取得失敗";
+        document.getElementById("cpu-cores").textContent = navigator.hardwareConcurrency || "取得失敗";
+
+        // CPUモデル（推定）
+        const cpuModel = navigator.userAgent.match(/(Intel|AMD|Apple|ARM|M1|M2)/i);
+        document.getElementById("cpu-model").textContent = cpuModel ? cpuModel[0] : "詳細不明";
 
         // メモリ情報
         const memory = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "取得失敗";
@@ -97,6 +117,13 @@
         document.getElementById("gpu").textContent = gpu;
       } catch (error) {
         console.error(error);
+
+        // 情報取得失敗時のデフォルトメッセージ
+        document.getElementById("os").textContent = "取得失敗";
+        document.getElementById("cpu-cores").textContent = "取得失敗";
+        document.getElementById("cpu-model").textContent = "取得失敗";
+        document.getElementById("memory").textContent = "取得失敗";
+        document.getElementById("gpu").textContent = "取得失敗";
       }
     }
   </script>
