@@ -71,7 +71,7 @@
     }
 
     // システム情報を取得する関数
-    function getSystemInfo() {
+    async function getSystemInfo() {
       try {
         // ブラウザ情報
         document.getElementById("browser").textContent = navigator.userAgent;
@@ -84,19 +84,16 @@
         document.getElementById("cpu-cores").textContent = navigator.hardwareConcurrency || "取得失敗";
 
         // CPUモデル
-        const cpuMatch = navigator.userAgent.match(/(Intel|AMD|Apple|ARM|Snapdragon|M1|M2|Ryzen|Xeon|Celeron|Pentium)/i);
-        document.getElementById("cpu-model").textContent = cpuMatch ? cpuMatch[0] : "詳細不明";
+        const cpuModel = await detectCpuModel();
+        document.getElementById("cpu-model").textContent = cpuModel || "詳細不明";
 
         // メモリ情報
         const memory = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "取得失敗";
         document.getElementById("memory").textContent = memory;
 
         // GPU情報
-        const canvas = document.createElement("canvas");
-        const gl = canvas.getContext("webgl");
-        const debugInfo = gl?.getExtension("WEBGL_debug_renderer_info");
-        const gpu = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : "取得失敗";
-        document.getElementById("gpu").textContent = gpu;
+        const gpuInfo = getGpuInfo();
+        document.getElementById("gpu").textContent = gpuInfo || "取得失敗";
       } catch (error) {
         console.error("システム情報の取得中にエラー:", error);
         document.getElementById("os").textContent = "取得失敗";
@@ -104,6 +101,55 @@
         document.getElementById("cpu-model").textContent = "取得失敗";
         document.getElementById("memory").textContent = "取得失敗";
         document.getElementById("gpu").textContent = "取得失敗";
+      }
+    }
+
+    // CPUモデルを検出する関数
+    async function detectCpuModel() {
+      try {
+        // userAgent解析
+        const userAgent = navigator.userAgent;
+        const cpuMatch = userAgent.match(/(Intel|AMD|Apple|ARM|Snapdragon|M[1-9]|Ryzen|Xeon|Celeron|Pentium|Core i[3-9]|Threadripper|Epyc)/i);
+        if (cpuMatch) {
+          return cpuMatch[0];
+        }
+
+        // Web Workerを使った速度ベンチマーク
+        if (window.Worker) {
+          return new Promise((resolve) => {
+            const worker = new Worker(URL.createObjectURL(new Blob([`
+              onmessage = function() {
+                let count = 0;
+                while (count < 1e7) count++;
+                postMessage(performance.now());
+              };
+            `], { type: 'text/javascript' })));
+
+            const startTime = performance.now();
+            worker.onmessage = (e) => {
+              const elapsed = performance.now() - startTime;
+              worker.terminate();
+              resolve(elapsed < 50 ? "ハイエンドCPU" : elapsed < 150 ? "ミドルレンジCPU" : "ローエンドCPU");
+            };
+            worker.postMessage(null);
+          });
+        }
+      } catch (error) {
+        console.error("CPUモデルの検出中にエラー:", error);
+        return null;
+      }
+    }
+
+    // GPU情報を取得する関数
+    function getGpuInfo() {
+      try {
+        const canvas = document.createElement("canvas");
+        const gl = canvas.getContext("webgl");
+        const debugInfo = gl?.getExtension("WEBGL_debug_renderer_info");
+        return debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : "取得失敗";
+      } catch (error) {
+        console.error("GPU情報の取得中にエラー:", error);
+        return null;
       }
     }
   </script>
