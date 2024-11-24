@@ -1,63 +1,41 @@
-// すでに見た本の情報を保存するためのキー
-const viewedBooksKey = "viewedBooks";
+// script.js
 
-// ピクセルの数をランダムに設定
-const pixelCount = 50; // 本に追加するピクセルの数
+document.getElementById('fetchButton').addEventListener('click', () => {
+  // 表示するコンテナを初期化
+  const dataContainer = document.getElementById('dataContainer');
+  const controller = new AbortController();
+  const signal = controller.signal;
 
-// ページが読み込まれたときに実行
-window.onload = function () {
-  // localStorageから既に見た本のIDを取得
-  let viewedBooks = JSON.parse(localStorage.getItem(viewedBooksKey)) || [];
+  // ボタンをクリックしたら、ロード中のメッセージを表示
+  dataContainer.style.display = 'block';
+  dataContainer.innerHTML = 'データを取得しています...';
 
-  // すべての本に対してチェック
-  const books = document.querySelectorAll(".book");
-
-  books.forEach((book) => {
-    const bookText = book.getAttribute("data-text");
-
-    // 本が見たことがあるものであれば、スタイルを変更
-    if (viewedBooks.includes(bookText)) {
-      book.classList.add("viewed");
-    }
-
-    // 本をクリックしたときに「見たことがある」として保存
-    book.addEventListener("click", () => {
-      if (!viewedBooks.includes(bookText)) {
-        viewedBooks.push(bookText);
-        localStorage.setItem(viewedBooksKey, JSON.stringify(viewedBooks));
-        book.classList.add("viewed");
+  // 非同期リクエストを送信
+  fetch('https://jsonplaceholder.typicode.com/posts', { signal })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('ネットワークエラー');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // 取得したデータを表示
+      dataContainer.innerHTML = '<h3>取得したデータ:</h3>';
+      data.slice(0, 5).forEach(post => {
+        dataContainer.innerHTML += `<p><strong>${post.title}</strong><br>${post.body}</p>`;
+      });
+    })
+    .catch(error => {
+      // エラー処理
+      if (error.name === 'AbortError') {
+        dataContainer.innerHTML = '<span class="error">リクエストはキャンセルされました</span>';
+      } else {
+        dataContainer.innerHTML = `<span class="error">エラーが発生しました: ${error.message}</span>`;
       }
     });
 
-    // ピクセルをランダムに生成して本に追加
-    addRandomPixels(book);
-  });
-};
-
-// 本にランダムなピクセルを追加する関数
-function addRandomPixels(book) {
-  for (let i = 0; i < pixelCount; i++) {
-    // ピクセルを作成
-    const pixel = document.createElement("div");
-    pixel.classList.add("pixel");
-
-    // ランダムな色
-    const randomColor = `hsl(${Math.random() * 360}, 100%, 80%)`;
-    pixel.style.backgroundColor = randomColor;
-
-    // ピクセルのサイズをランダムに
-    const randomSize = Math.random() * 4 + 2; // サイズは2px〜6px
-    pixel.style.width = `${randomSize}px`;
-    pixel.style.height = `${randomSize}px`;
-
-    // ピクセルの位置をランダムに設定
-    const x = Math.random() * (book.offsetWidth - randomSize);  // bookの幅内でランダム
-    const y = Math.random() * (book.offsetHeight - randomSize); // bookの高さ内でランダム
-    pixel.style.left = `${x}px`;
-    pixel.style.top = `${y}px`;
-
-    // 本にピクセルを追加
-    book.appendChild(pixel);
-  }
-}
-
+  // 3秒後にリクエストをキャンセルする
+  setTimeout(() => {
+    controller.abort();
+  }, 3000);  // 3秒後にキャンセル
+});
