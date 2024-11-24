@@ -3,28 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>バベルの図書館</title>
-  <link rel="stylesheet" href="styles.css"> <!-- 外部CSSファイルをリンク -->
+  <title>サンプルページ</title>
+  <!-- CSSファイルを正しくリンク -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- JavaScriptファイルを正しくリンク -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="library">
-    <div class="row">
-      <div class="book" data-text="本1"></div>
-      <div class="book" data-text="本2"></div>
-      <div class="book" data-text="本3"></div>
-      <div class="book" data-text="本4"></div>
-      <div class="book" data-text="本5"></div>
-    </div>
-    <div class="row">
-      <div class="book" data-text="本6"></div>
-      <div class="book" data-text="本7"></div>
-      <div class="book" data-text="本8"></div>
-      <div class="book" data-text="本9"></div>
-      <div class="book" data-text="本10"></div>
-    </div>
+  <div class="content">
+    <h1>ようこそ！</h1>
+    <p>ここにコンテンツがあります。</p>
+    <button id="fetchButton">データを取得</button>
+    <div id="dataContainer"></div>
   </div>
-
-  <script src="script.js"></script> <!-- 外部JavaScriptファイルをリンク -->
 </body>
 </html>
-
