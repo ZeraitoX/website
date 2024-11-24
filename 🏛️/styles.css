@@ -1,4 +1,6 @@
 /* styles.css */
+
+/* ページ全体の背景とフォント設定 */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -6,42 +8,42 @@ body {
   padding: 0;
 }
 
-.content {
-  width: 80%;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: white;
+/* 図書館のレイアウト設定 */
+.library {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* 各行の本を横並びに配置 */
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* 各本のスタイル設定 */
+.book {
+  width: 150px;
+  height: 200px;
+  background-color: #d3d3d3;
+  margin: 10px;
+  border-radius: 10px;
+  position: relative;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-h1 {
+/* 本のタイトルを中央に表示 */
+.book::before {
+  content: attr(data-text);
   color: #333;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-#dataContainer {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  display: none;
-}
-
-.error {
-  color: red;
+  font-size: 18px;
   font-weight: bold;
+  text-align: center;
+  display: block;
 }
