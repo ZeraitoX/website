@@ -143,9 +143,12 @@
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
 
-            for (let i = 0; i < 50; i++) {
-                const angle = Math.random() * 2 * Math.PI;
-                const radius = Math.random() * 100;
+            // Create particles around the text in a circle
+            const numParticles = 50; // Number of particles around the text
+            const radius = 100; // Radius for the circle around the text
+
+            for (let i = 0; i < numParticles; i++) {
+                const angle = Math.random() * 2 * Math.PI; // Random angle
                 const x = centerX + Math.cos(angle) * radius;
                 const y = centerY + Math.sin(angle) * radius;
                 createParticle(x, y);
