@@ -45,6 +45,26 @@
                 text-shadow: 0 0 16px #ff4081, 0 0 32px #ff80ab;
             }
         }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff4081;
+            border-radius: 50%;
+            animation: particleMove 1s ease-out forwards;
+        }
+
+        @keyframes particleMove {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-200px) scale(0.5);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -96,6 +116,19 @@
         const main = document.querySelector('main');
         const footer = document.querySelector('footer');
 
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            document.body.appendChild(particle);
+
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
+        }
+
         function showSite() {
             loadingScreen.style.display = 'none';
             header.style.display = 'block';
@@ -103,7 +136,16 @@
             footer.style.display = 'block';
         }
 
-        loadingScreen.addEventListener('click', showSite);
+        loadingScreen.addEventListener('click', (e) => {
+            showSite();
+            for (let i = 0; i < 30; i++) {
+                createParticle(
+                    e.clientX + (Math.random() - 0.5) * 100,
+                    e.clientY + (Math.random() - 0.5) * 100
+                );
+            }
+        });
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 showSite();
