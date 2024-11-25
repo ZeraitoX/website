@@ -1,6 +1,11 @@
-/* 基本スタイル */
+/* フォントインポート */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* 基本設定 */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
@@ -18,6 +23,7 @@ header {
     border-bottom: 2px solid #00ff00;
     margin-bottom: 40px;
 }
+
 header h1 {
     font-size: 3.5rem;
     margin: 0;
@@ -45,16 +51,20 @@ main {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     border: 1px solid rgba(0, 255, 0, 0.4);
 }
+
+/* カード画像 */
 .card img {
     width: 100%;
     border-radius: 15px;
 }
+
+/* カード内のテキスト */
 .card p {
     font-size: 1.2rem;
     margin-top: 15px;
 }
 
-/* リンクのスタイル */
+/* リンク */
 .link {
     display: block;
     padding: 12px 20px;
@@ -67,6 +77,7 @@ main {
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
+
 .link:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 25px rgba(255, 0, 102, 0.8);
@@ -86,6 +97,7 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
     text-shadow: 0 0 15px rgba(0, 255, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.5);
 }
+
 .join-button:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 25px rgba(255, 0, 102, 0.8);
@@ -125,3 +137,54 @@ footer {
         align-items: center;
     }
 }
+
+/* カスタムシャペディバイダー */
+.custom-shape-divider-bottom-1699818428 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1699818428 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 110px;
+}
+
+.custom-shape-divider-bottom-1699818428 .shape-fill {
+    fill: #101013;
+}
+
+.custom-shape-divider-top-1699926473 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1699926473 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 110px;
+}
+
+.custom-shape-divider-top-1699926473 .shape-fill {
+    fill: #101013;
+}
+
+/* その他 */
+.hidden {
+    display: none;
+}
+.visible {
+    visibility: visible;
+}
+
