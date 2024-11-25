@@ -26,6 +26,7 @@
             font-size: 2rem;
             text-shadow: 0 0 8px #e91e63, 0 0 16px #ff4081;
             animation: glow 1.5s infinite alternate;
+            position: relative;
         }
 
         @keyframes fadeIn {
@@ -50,7 +51,6 @@
             position: absolute;
             width: 5px;
             height: 5px;
-            background: #ff4081;
             border-radius: 50%;
             animation: particleMove 1s ease-out forwards;
         }
@@ -116,9 +116,18 @@
         const main = document.querySelector('main');
         const footer = document.querySelector('footer');
 
+        function getRandomMixedColor() {
+            const colors = [
+                `rgba(${255}, ${255}, ${255}, ${Math.random() * 0.5 + 0.5})`, // 半透明白
+                `rgba(${0}, ${255}, ${0}, ${Math.random() * 0.5 + 0.5})`       // 半透明緑
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
         function createParticle(x, y) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
+            particle.style.background = getRandomMixedColor();
             document.body.appendChild(particle);
 
             particle.style.left = `${x}px`;
@@ -129,6 +138,20 @@
             });
         }
 
+        function createAroundTextParticles() {
+            const rect = document.querySelector('#loading-screen h1').getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 50; i++) {
+                const angle = Math.random() * 2 * Math.PI;
+                const radius = Math.random() * 100;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+                createParticle(x, y);
+            }
+        }
+
         function showSite() {
             loadingScreen.style.display = 'none';
             header.style.display = 'block';
@@ -136,19 +159,15 @@
             footer.style.display = 'block';
         }
 
-        loadingScreen.addEventListener('click', (e) => {
-            showSite();
-            for (let i = 0; i < 30; i++) {
-                createParticle(
-                    e.clientX + (Math.random() - 0.5) * 100,
-                    e.clientY + (Math.random() - 0.5) * 100
-                );
-            }
+        loadingScreen.addEventListener('click', () => {
+            createAroundTextParticles();
+            setTimeout(showSite, 1000);
         });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                showSite();
+                createAroundTextParticles();
+                setTimeout(showSite, 1000);
             }
         });
     </script>
