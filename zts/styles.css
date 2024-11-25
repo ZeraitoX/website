@@ -12,7 +12,7 @@ body {
 
 /* ヘッダー */
 header {
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.75);
     padding: 20px 0;
     backdrop-filter: blur(8px);
     border-bottom: 2px solid #00ff00;
@@ -43,6 +43,7 @@ main {
     max-width: 650px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 255, 0, 0.4);
 }
 .card img {
     width: 100%;
@@ -53,27 +54,23 @@ main {
     margin-top: 15px;
 }
 
-/* 特徴セクション */
-.feature-cards {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 30px;
+/* リンクのスタイル */
+.link {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 0;
+    background: linear-gradient(45deg, #ff0066, #00ff99);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
-.feature-card {
-    flex: 1;
-    min-width: 300px;
-    padding: 25px;
-    border: 2px solid #00ff00;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-.feature-card:hover {
-    background-color: rgba(0, 255, 0, 0.1);
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+.link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 0, 102, 0.8);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.5);
 }
 
 /* ボタン */
@@ -102,6 +99,7 @@ footer {
     margin-top: 40px;
     border-top: 2px solid #00ff00;
     font-size: 1.1rem;
+    color: #ddd;
 }
 
 /* アニメーション */
