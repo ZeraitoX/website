@@ -5,70 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ハックサーバー - CyberSpace</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('auau.jpg'); /* 背景画像のURL */
-            background-size: cover;  /* 画像を画面いっぱいに表示 */
-            background-position: center;  /* 画像を画面の中心に配置 */
-            background-repeat: no-repeat; /* 画像が繰り返さないように */
-            color: #e91e63;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        #loading-screen h1 {
-            font-size: 2rem;
-            text-shadow: 0 0 8px #e91e63, 0 0 16px #ff4081;
-            animation: glow 1.5s infinite alternate;
-            position: relative;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 8px #e91e63, 0 0 16px #ff4081;
-            }
-            to {
-                text-shadow: 0 0 16px #ff4081, 0 0 32px #ff80ab;
-            }
-        }
-
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            animation: particleMove 1s ease-out forwards;
-        }
-
-        @keyframes particleMove {
-            from {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-200px) scale(0.5);
-                opacity: 0;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -79,13 +15,17 @@
     <header style="display: none;">
         <h1>⚡️ CyberSpace - Hack the System ⚡️</h1>
     </header>
+
     <main style="display: none;">
+        <!-- Intro Section -->
         <section class="intro">
             <div class="card">
                 <img src="banner.jpg" alt="サーバーバナー" class="banner">
                 <p>最先端のMinecraftコミュニティ、<strong>CyberSpace</strong>へようこそ。</p>
             </div>
         </section>
+
+        <!-- Features Section -->
         <section class="features">
             <h2>💻 サーバーの特徴</h2>
             <div class="feature-cards">
@@ -103,14 +43,18 @@
                 </div>
             </div>
         </section>
+
+        <!-- Join Section -->
         <section class="join">
             <h2>🔐 今すぐ参加</h2>
             <a href="#" class="join-button">参加する</a>
         </section>
     </main>
+
     <footer style="display: none;">
         <p>© 2024 CyberSpace Hackers</p>
     </footer>
+
     <script src="script.js"></script>
     <script>
         // Show the site after click or Enter key press
