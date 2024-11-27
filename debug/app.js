@@ -7,6 +7,8 @@ const networkOutput = document.getElementById('network-output');
 const domOutput = document.getElementById('dom-output');
 const resourceOutput = document.getElementById('resource-output');
 const performanceOutput = document.getElementById('performance-output');
+const consoleInput = document.getElementById('console-input');
+const runCommandButton = document.getElementById('run-command-button');
 
 // Function to log messages to console output section
 function logToConsole(message) {
@@ -124,3 +126,19 @@ loadButton.addEventListener('click', function() {
     }
 });
 
+// Function to run JavaScript code inside the iframe's context
+runCommandButton.addEventListener('click', function() {
+    const command = consoleInput.value;
+    if (!command) {
+        alert("Please enter a command!");
+        return;
+    }
+
+    try {
+        const result = iframe.contentWindow.eval(command);
+        logToConsole(`Result: ${result}`);
+    } catch (error) {
+        logToConsole(`Error: ${error.message}`);
+    }
+    consoleInput.value = ""; // Clear input after execution
+});
