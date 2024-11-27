@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- ローディング画面 -->
     <div id="loading-screen">
         <h1>Click or Press Enter to Start</h1>
     </div>
 
+    <!-- ヘッダー -->
     <header style="display: none;">
         <h1>⚡️ CyberSpace - Hack the System ⚡️</h1>
     </header>
 
+    <!-- メインコンテンツ -->
     <main style="display: none;">
-        <!-- Intro Section -->
+        <!-- サーバー紹介セクション -->
         <section class="intro">
             <div class="card">
                 <img src="banner.jpg" alt="サーバーバナー" class="banner">
@@ -25,7 +27,7 @@
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- 特徴セクション -->
         <section class="features">
             <h2>💻 サーバーの特徴</h2>
             <div class="feature-cards">
@@ -44,82 +46,18 @@
             </div>
         </section>
 
-        <!-- Join Section -->
+        <!-- 参加セクション -->
         <section class="join">
             <h2>🔐 今すぐ参加</h2>
             <a href="#" class="join-button">参加する</a>
         </section>
     </main>
 
+    <!-- フッター -->
     <footer style="display: none;">
         <p>© 2024 CyberSpace Hackers</p>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Show the site after click or Enter key press
-        const loadingScreen = document.getElementById('loading-screen');
-        const header = document.querySelector('header');
-        const main = document.querySelector('main');
-        const footer = document.querySelector('footer');
-
-        function getRandomMixedColor() {
-            const colors = [
-                `rgba(${255}, ${255}, ${255}, ${Math.random() * 0.5 + 0.5})`, // 半透明白
-                `rgba(${0}, ${255}, ${0}, ${Math.random() * 0.5 + 0.5})`       // 半透明緑
-            ];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.background = getRandomMixedColor();
-            document.body.appendChild(particle);
-
-            particle.style.left = `${x}px`;
-            particle.style.top = `${y}px`;
-
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-            });
-        }
-
-        function createAroundTextParticles() {
-            const rect = document.querySelector('#loading-screen h1').getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            // Create particles around the text in a circle
-            const numParticles = 50; // Number of particles around the text
-            const radius = 100; // Radius for the circle around the text
-
-            for (let i = 0; i < numParticles; i++) {
-                const angle = Math.random() * 2 * Math.PI; // Random angle
-                const x = centerX + Math.cos(angle) * radius;
-                const y = centerY + Math.sin(angle) * radius;
-                createParticle(x, y);
-            }
-        }
-
-        function showSite() {
-            loadingScreen.style.display = 'none';
-            header.style.display = 'block';
-            main.style.display = 'block';
-            footer.style.display = 'block';
-        }
-
-        loadingScreen.addEventListener('click', () => {
-            createAroundTextParticles();
-            setTimeout(showSite, 1000);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                createAroundTextParticles();
-                setTimeout(showSite, 1000);
-            }
-        });
-    </script>
 </body>
 </html>
