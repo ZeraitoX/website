@@ -31,8 +31,15 @@ header {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+}
+
+/* メインコンテンツ */
+main {
+    padding: 20px;
+    display: none;
+    background: #0d0d0d;
+    color: #e6e6e6;
 }
 
 /* カード */
@@ -41,27 +48,10 @@ header {
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 
-                0 0 15px rgba(0, 255, 255, 0.5), 
-                0 0 30px rgba(0, 255, 255, 0.5);
     text-align: center;
 }
 
-.card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-/* セクションタイトル */
-h2 {
-    color: #fff;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* ネオンボタン */
+/* ボタン */
 .join-button {
     display: inline-block;
     padding: 10px 20px;
@@ -73,36 +63,4 @@ h2 {
     border-radius: 5px;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 15px #00ff7f, 0 0 30px #00ff7f, 0 0 45px #00ff7f;
-}
-
-.join-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #00ff7f, 0 0 40px #00ff7f, 0 0 60px #00ff7f;
-}
-
-/* 特徴カード */
-.feature-cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.feature-card {
-    background: #1a1a1a;
-    border-radius: 10px;
-    padding: 15px;
-    width: 30%;
-    text-align: center;
-    color: #00ff7f;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-}
-
-/* フッター */
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #1a1a1a;
-    color: #fff;
 }
