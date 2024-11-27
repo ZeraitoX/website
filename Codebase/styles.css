@@ -1,1 +1,131 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #0366d6;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    font-size: 36px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #0366d6;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #0366d6;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #024b8b;
+}
+
+.hidden {
+    display: none;
+}
+
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.tab-button {
+    padding: 10px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.tab-button:hover {
+    background-color: #ccc;
+}
+
+.tab-content {
+    padding: 15px;
+    border: 1px solid #ccc;
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form label {
+    font-size: 18px;
+}
+
+form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0366d6;
+    color: white;
+}
 
