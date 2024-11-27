@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+        <div id="welcome-message">Please log in</div>
+        <button id="login-btn">Login</button>
+        <button id="logout-btn" style="display: none;">Logout</button>
+    </header>
+
+    <main>
+        <section class="task-input">
+            <input type="text" id="task-input" placeholder="Enter a task">
+            <select id="priority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <input type="date" id="due-date">
+            <input type="text" id="task-category-input" placeholder="Enter task category">
+            <input type="text" id="task-tags-input" placeholder="Enter task tags (comma separated)">
+            <input type="text" id="task-progress" placeholder="Progress (e.g. 50%)">
+            <button id="add-task-btn">Add Task</button>
+        </section>
+
+        <section class="task-filters">
+            <button id="filter-all">All Tasks</button>
+            <button id="filter-completed">Completed Tasks</button>
+            <button id="filter-pending">Pending Tasks</button>
+            <button id="filter-priority">Sort by Priority</button>
+            <input type="text" id="search-input" placeholder="Search tasks">
+        </section>
+
+        <section class="task-list">
+            <ul id="tasks">
+                <!-- Task items will be dynamically added here -->
+            </ul>
+        </section>
+
+        <section class="task-backup">
+            <button id="backup-btn">Backup Tasks</button>
+            <input type="file" id="restore-btn" style="display: none;">
+            <button id="restore-btn" onclick="document.getElementById('restore-btn').click();">Restore Tasks</button>
+        </section>
+
+        <section class="task-history">
+            <button id="task-history-btn">View Task History</button>
+        </section>
+
+        <section class="dark-mode-toggle">
+            <label for="dark-mode-switch">Dark Mode</label>
+            <input type="checkbox" id="dark-mode-switch">
+        </section>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="modal-close" class="modal-close">&times;</span>
+                <textarea id="task-description" placeholder="Enter task description"></textarea>
+                <input type="text" id="task-tags" placeholder="Enter task tags">
+                <input type="text" id="task-progress" placeholder="Enter task progress">
+                <input type="text" id="task-category" placeholder="Enter task category">
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Task Manager. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
 
