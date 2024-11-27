@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Debugging Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Advanced Debugging Tool</h1>
+        <p>Enter a URL to debug and monitor errors, network requests, and other issues.</p>
+    </header>
+
+    <div class="container">
+        <section class="input-section">
+            <label for="url-input">Enter Website URL:</label>
+            <input type="text" id="url-input" placeholder="e.g. https://example.com">
+            <button id="load-button">Load Website</button>
+        </section>
+
+        <section class="iframe-section">
+            <h2>Website Preview</h2>
+            <iframe id="website-frame" src="" width="100%" height="500px"></iframe>
+        </section>
+
+        <section class="console-section">
+            <h2>Console Output</h2>
+            <div id="console-output"></div>
+        </section>
+
+        <section class="network-section">
+            <h2>Network Requests</h2>
+            <div id="network-output"></div>
+        </section>
+
+        <section class="dom-section">
+            <h2>DOM Changes</h2>
+            <div id="dom-output"></div>
+        </section>
+
+        <section class="resources-section">
+            <h2>Resource Loading Errors</h2>
+            <div id="resource-output"></div>
+        </section>
+
+        <section class="performance-section">
+            <h2>Performance Monitoring</h2>
+            <div id="performance-output"></div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>Debugging made easy | Powered by JavaScript</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
 
