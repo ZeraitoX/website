@@ -1,57 +1,30 @@
-/* グローバル設定 */
-body {
-    margin: 0;
-    font-family: 'Courier New', Courier, monospace;
-    background: #0d0d0d;
-    color: #e6e6e6;
-}
-
-/* ローディング画面 */
-#loading-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #000000, #101010);
-    color: #00ff7f;
-    font-size: 24px;
-    z-index: 100;
-    text-shadow: 0 0 10px #00ff7f, 0 0 20px #00ff7f;
-}
-
-/* ヘッダー */
-header {
-    background: #1a1a1a;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
-}
-
-/* メインコンテンツ */
-main {
-    padding: 20px;
-    display: none;
-    background: #0d0d0d;
-    color: #e6e6e6;
-}
-
 /* カード */
 .card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 
+                0 0 15px rgba(0, 255, 255, 0.5), 
+                0 0 30px rgba(0, 255, 255, 0.5);
     text-align: center;
 }
 
-/* ボタン */
+/* 画像スタイル */
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* セクションタイトル */
+h2 {
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    margin-bottom: 20px;
+}
+
+/* ネオンボタン */
 .join-button {
     display: inline-block;
     padding: 10px 20px;
@@ -63,4 +36,38 @@ main {
     border-radius: 5px;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px #00ff7f, 0 0 30px #00ff7f, 0 0 45px #00ff7f;
+}
+
+/* ホバー時のネオンボタン */
+.join-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ff7f, 0 0 40px #00ff7f, 0 0 60px #00ff7f;
+}
+
+/* 特徴カード */
+.feature-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 特徴カード */
+.feature-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 15px;
+    width: 30%;
+    text-align: center;
+    color: #00ff7f;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #1a1a1a;
+    color: #fff;
 }
