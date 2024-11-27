@@ -1,124 +1,87 @@
-/* General Reset */
-body, h1, h2, h3, p, a {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-}
-
+/* グローバル設定 */
 body {
-    background: linear-gradient(135deg, #1a1a1d, #0c0c0d);
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background: #0d0d0d;
+    color: #e6e6e6;
 }
 
-/* Loading Screen */
+/* ローディング画面 */
 #loading-screen {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    background: rgba(0, 0, 0, 0.9);
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
-}
-
-#loading-screen h1 {
-    font-size: 2rem;
-    color: #00ff00;
-    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-    animation: glow 1.5s infinite alternate;
-    cursor: pointer;
-}
-
-/* Particle Animation */
-.particle {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    opacity: 0;
-    animation: particle 1.5s forwards;
-}
-
-@keyframes particle {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0);
-    }
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00;
-    }
-    to {
-        text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
-    }
-}
-
-/* Header */
-header {
-    text-align: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
-    border-bottom: 2px solid #00ff00;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
-}
-
-/* Intro Section */
-main {
-    padding: 20px;
-}
-
-.intro .card {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-}
-
-.intro .banner {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 100%;
+    background: linear-gradient(90deg, #000000, #101010);
+    color: #00ff7f;
+    font-size: 24px;
+    z-index: 100;
+    text-shadow: 0 0 10px #00ff7f, 0 0 20px #00ff7f;
 }
 
-.intro p {
-    margin-top: 15px;
-    font-size: 1.2rem;
-    color: #ccc;
-}
-
-/* Features Section */
-.features {
-    margin-top: 40px;
-}
-
-.features h2 {
+/* ヘッダー */
+header {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px;
     text-align: center;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
-    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
 }
 
+/* カード */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 
+                0 0 15px rgba(0, 255, 255, 0.5), 
+                0 0 30px rgba(0, 255, 255, 0.5);
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* セクションタイトル */
+h2 {
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ネオンボタン */
+.join-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background: #00ff7f;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px #00ff7f, 0 0 30px #00ff7f, 0 0 45px #00ff7f;
+}
+
+.join-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ff7f, 0 0 40px #00ff7f, 0 0 60px #00ff7f;
+}
+
+/* 特徴カード */
 .feature-cards {
     display: flex;
     justify-content: space-around;
@@ -127,64 +90,19 @@ main {
 }
 
 .feature-card {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #00ff00;
+    background: #1a1a1a;
     border-radius: 10px;
     padding: 15px;
-    flex: 1;
+    width: 30%;
     text-align: center;
-    max-width: 300px;
+    color: #00ff7f;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
-.feature-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #00ff00;
-}
-
-.feature-card p {
-    font-size: 1rem;
-    color: #ccc;
-}
-
-/* Join Section */
-.join {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.join h2 {
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
-    margin-bottom: 20px;
-}
-
-.join .join-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background: #00ff00;
-    border-radius: 5px;
-    text-decoration: none;
-    box-shadow: 0 0 10px #00ff00;
-    transition: transform 0.2s ease;
-}
-
-.join .join-button:hover {
-    transform: scale(1.1);
-}
-
-/* Footer */
+/* フッター */
 footer {
-    margin-top: 40px;
     text-align: center;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-top: 2px solid #00ff00;
-}
-
-footer p {
-    font-size: 0.8rem;
-    color: #ccc;
+    background: #1a1a1a;
+    color: #fff;
 }
