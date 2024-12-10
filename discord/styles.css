@@ -2,88 +2,97 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    background: #000000; /* 背景を完全な黒色に変更 */
     color: #ffffff;
     text-align: center;
     overflow-x: hidden;
 }
 
-.neon-header h1 {
+header {
+    padding: 20px 10px;
+    background-color: rgba(114, 137, 218, 0.8);
+    text-align: center;
+    border-bottom: 2px solid #7289da;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
     font-size: 2.5em;
-    color: #fff;
-    text-shadow: 0 0 5px #7289da, 0 0 10px #7289da, 0 0 20px #7289da, 0 0 30px #5b6eae;
+    margin: 0;
+    text-shadow: 0 0 10px #7289da;
 }
 
 .container {
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 40px auto;
     padding: 20px;
-    max-width: 900px;
     background: rgba(35, 39, 42, 0.8);
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
 }
 
 .stats {
     display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
-    animation: slide-in 1s ease-in-out;
+    justify-content: space-evenly;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 .stat {
+    flex: 1;
+    min-width: 150px;
     padding: 20px;
-    border-radius: 15px;
     text-align: center;
-    position: relative;
-}
-
-.neon-box {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 15px rgba(114, 137, 218, 0.5);
+    background: rgba(0, 0, 0, 0.7); /* 背景に黒を基調とした透明感 */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.neon-box:hover {
+.stat:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 30px rgba(114, 137, 218, 1);
+    box-shadow: 0 0 20px rgba(114, 137, 218, 1);
+}
+
+.stat h2 {
+    font-size: 2em;
+    margin: 10px 0;
+    color: #7289da;
+}
+
+.stat p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+.cta {
+    margin-top: 20px;
 }
 
 .cta a {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    color: #ffffff;
+    background: linear-gradient(45deg, #7289da, #5b6eae);
+    border-radius: 10px;
     text-decoration: none;
-    font-size: 1.2em;
-    color: white;
-    padding: 10px 20px;
-    border: 2px solid #7289da;
-    border-radius: 5px;
-    text-shadow: 0 0 5px #7289da;
-    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 10px #7289da;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .cta a:hover {
-    background: #7289da;
-    transform: scale(1.1);
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px #7289da;
 }
 
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slide-in {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+footer {
+    margin-top: 40px;
+    padding: 10px;
+    background-color: rgba(35, 39, 42, 0.8);
+    font-size: 0.9em;
+    color: #aaa;
 }
