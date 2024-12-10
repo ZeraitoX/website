@@ -2,97 +2,64 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: #000000; /* 背景を完全に黒色に統一 */
+    background: #000000;
     color: #ffffff;
     text-align: center;
     overflow-x: hidden;
+    font-size: 18px; /* 全体のフォントサイズを拡大 */
 }
 
 header {
-    padding: 20px 10px;
-    background-color: rgba(114, 137, 218, 0.8); /* ヘッダーの背景色 */
+    padding: 30px 15px; /* ヘッダーの余白を広げる */
+    background-color: rgba(114, 137, 218, 0.8);
     text-align: center;
     border-bottom: 2px solid #7289da;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-header h1 {
-    font-size: 2.5em;
-    margin: 0;
-    text-shadow: 0 0 10px #7289da; /* テキストにネオン効果 */
+    font-size: 1.5em; /* ヘッダーのフォントサイズを拡大 */
 }
 
 .container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-    background: rgba(35, 39, 42, 0.9); /* 背景にダークグレーの透明感 */
+    max-width: 1400px; /* コンテナの幅を広げる */
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(35, 39, 42, 0.9);
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
 }
 
 .stats {
     display: flex;
     justify-content: space-evenly;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+    gap: 30px; /* 各要素間の間隔を広げる */
+    margin-bottom: 40px;
 }
 
 .stat {
     flex: 1;
-    min-width: 150px;
-    padding: 20px;
+    min-width: 200px; /* 各カードの最小幅を広げる */
+    padding: 30px; /* カード内の余白を広げる */
     text-align: center;
-    background: rgba(0, 0, 0, 0.7); /* 完全な黒の透明背景 */
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); /* ネオン調の影 */
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.stat:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(114, 137, 218, 1);
-}
-
-.stat h2 {
-    font-size: 2em;
-    margin: 10px 0;
-    color: #7289da;
-}
-
-.stat p {
-    margin: 0;
-    font-size: 1.2em;
-    color: #ffffff;
-}
-
-.cta {
-    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); /* ボックスシャドウを強調 */
+    font-size: 1.2em; /* カードのフォントサイズを拡大 */
 }
 
 .cta a {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.5em;
-    color: #ffffff;
-    background: linear-gradient(45deg, #7289da, #5b6eae);
-    border-radius: 10px;
     text-decoration: none;
-    box-shadow: 0 0 10px #7289da;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #7289da;
+    color: #ffffff;
+    padding: 15px 25px; /* ボタンを大きくする */
+    border-radius: 8px;
+    font-size: 1.5em; /* ボタン内のフォントサイズを拡大 */
+    transition: background-color 0.3s ease;
 }
 
 .cta a:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px #7289da;
+    background-color: #5b6eae;
 }
 
 footer {
-    margin-top: 40px;
-    padding: 10px;
+    padding: 20px;
     background-color: rgba(35, 39, 42, 0.8);
-    font-size: 0.9em;
     color: #aaa;
+    font-size: 1.1em; /* フッターのフォントサイズを拡大 */
 }
