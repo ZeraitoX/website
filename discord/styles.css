@@ -2,7 +2,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: #000000; /* 背景を完全な黒色に変更 */
+    background: #000000; /* 背景を完全に黒色に統一 */
     color: #ffffff;
     text-align: center;
     overflow-x: hidden;
@@ -10,7 +10,7 @@ body {
 
 header {
     padding: 20px 10px;
-    background-color: rgba(114, 137, 218, 0.8);
+    background-color: rgba(114, 137, 218, 0.8); /* ヘッダーの背景色 */
     text-align: center;
     border-bottom: 2px solid #7289da;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -19,14 +19,14 @@ header {
 header h1 {
     font-size: 2.5em;
     margin: 0;
-    text-shadow: 0 0 10px #7289da;
+    text-shadow: 0 0 10px #7289da; /* テキストにネオン効果 */
 }
 
 .container {
     max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
-    background: rgba(35, 39, 42, 0.8);
+    background: rgba(35, 39, 42, 0.9); /* 背景にダークグレーの透明感 */
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
@@ -45,9 +45,9 @@ header h1 {
     min-width: 150px;
     padding: 20px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.7); /* 背景に黒を基調とした透明感 */
+    background: rgba(0, 0, 0, 0.7); /* 完全な黒の透明背景 */
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+    box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); /* ネオン調の影 */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
