@@ -1,73 +1,45 @@
-/* カード */
-.card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 
-                0 0 15px rgba(0, 255, 255, 0.5), 
-                0 0 30px rgba(0, 255, 255, 0.5);
-    text-align: center;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #181818;
+  color: #fff;
 }
 
-/* 画像スタイル */
-.card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
+.hero {
+  text-align: center;
+  padding: 50px;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
 }
 
-/* セクションタイトル */
-h2 {
-    color: #fff;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-    margin-bottom: 20px;
+.hero h1 {
+  font-size: 3em;
+  margin: 0;
 }
 
-/* ネオンボタン */
-.join-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background: #00ff7f;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 15px #00ff7f, 0 0 30px #00ff7f, 0 0 45px #00ff7f;
+.hero p {
+  font-size: 1.2em;
 }
 
-/* ホバー時のネオンボタン */
-.join-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #00ff7f, 0 0 40px #00ff7f, 0 0 60px #00ff7f;
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1em;
+  color: #fff;
+  background: #2d2dff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-/* 特徴カード */
-.feature-cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+.features {
+  padding: 30px;
 }
 
-/* 特徴カード */
 .feature-card {
-    background: #1a1a1a;
-    border-radius: 10px;
-    padding: 15px;
-    width: 30%;
-    text-align: center;
-    color: #00ff7f;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-}
-
-/* フッター */
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #1a1a1a;
-    color: #fff;
+  background: #2a2a2a;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
 }
