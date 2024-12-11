@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイトから離れられないページ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>あなたはこのページから離れられません！</h1>
+    <p>ページの操作が制限されています。</p>
+
+    <a href="data:text/html;charset=utf-8,<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>サイトから離れられないページ</title><link rel='stylesheet' href='styles.css'></head><body><h1>あなたはこのページから離れられません！</h1><p>ページの操作が制限されています。</p><script>document.addEventListener('keydown',function(event){if(event.key==='F11'){event.preventDefault();alert('F11キー（全画面表示）は無効です。');}if(event.altKey&&event.key==='F4'){event.preventDefault();alert('Alt + F4（タブを閉じる）は無効です。');}if(event.ctrlKey){event.preventDefault();alert('Ctrlキーは無効です。');}});window.onbeforeunload = function() {return 'ページを離れますか？';};</script></body></html>" download="locked_page.html" class="download-btn">ダウンロード</a>
+
+    <script>
+        // ブラウザの戻るボタンを無効化
+        window.history.forward();
+        window.onload = function() {
+            setTimeout(function() {
+                window.history.forward();
+            }, 0);
+        };
+
+        // リロード、戻る、進むボタンの無効化
+        window.onbeforeunload = function() {
+            return "ページを離れますか？";
+        };
+
+        // キー操作無効化
+        document.addEventListener('keydown', function(event) {
+            // F11キーを無効化
+            if (event.key === "F11") {
+                event.preventDefault();
+                alert("F11キー（全画面表示）は無効です。");
+            }
+
+            // Alt + F4を無効化
+            if (event.altKey && event.key === "F4") {
+                event.preventDefault();
+                alert("Alt + F4（タブを閉じる）は無効です。");
+            }
+
+            // Ctrlキーを無効化
+            if (event.ctrlKey) {
+                event.preventDefault();
+                alert("Ctrlキーは無効です。");
+            }
+
+            // リロードやタブを閉じるキーを無効化
+            if (event.key === "F5" || (event.ctrlKey && event.key === "r")) {
+                event.preventDefault();
+                alert("リロードは無効です。");
+            }
+        });
+    </script>
+
+</body>
+</html>
 
