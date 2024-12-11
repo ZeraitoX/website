@@ -1,61 +1,74 @@
+/* 全体のスタイル */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
-}
-
-.fullscreen {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(135deg, #1e1e1e, #444);
-  color: white;
+  overflow: hidden;
+}
+
+/* コンテンツの中央寄せ */
+.content {
   text-align: center;
-  font-family: Arial, sans-serif;
+  animation: fadeIn 1.5s ease-out;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+/* フェードインアニメーション */
+.fade-in {
+  animation: fadeIn 1.5s ease-out;
 }
 
-p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.download-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* スライドインアニメーション */
+.slide-in {
+  animation: slideIn 1.5s ease-out;
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ボタンのスタイル */
 .download-btn {
   display: inline-block;
-  padding: 12px 25px;
+  margin: 10px;
+  padding: 15px 30px;
   font-size: 1rem;
   background-color: #007bff;
   color: white;
   text-decoration: none;
   border-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s;
-  text-align: center;
-  width: 200px;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+/* ボタンのホバー効果 */
 .download-btn:hover {
   background-color: #0056b3;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
+/* ボタンのクリック時の縮小 */
 .download-btn:active {
-  background-color: #003f8c;
-}
-
-.hidden {
-  display: none;
+  transform: scale(0.95);
 }
