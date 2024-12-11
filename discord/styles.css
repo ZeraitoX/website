@@ -39,13 +39,6 @@ header {
     padding: 30px;
     background: rgba(35, 39, 42, 0.9);
     border-radius: 15px;
-    animation: containerSlideIn 1.5s ease-out; /* コンテナのスライドインアニメーション */
-}
-
-/* コンテナが左からスライドインするアニメーション */
-@keyframes containerSlideIn {
-    0% { transform: translateX(-100%); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
 }
 
 .stats {
@@ -64,14 +57,13 @@ header {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(114, 137, 218, 0.6);
     font-size: 1.2em;
-    animation: statPulse 3s infinite; /* ボックスが脈動するアニメーション */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー用のトランジションを追加 */
 }
 
-/* ボックスが脈動するアニメーション */
-@keyframes statPulse {
-    0% { transform: scale(1); box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); }
-    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(114, 137, 218, 1); }
-    100% { transform: scale(1); box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); }
+/* ホバー時のアニメーション */
+.stat:hover {
+    transform: scale(1.05); /* 少し拡大 */
+    box-shadow: 0 0 25px rgba(114, 137, 218, 1); /* 光を強調 */
 }
 
 .cta a {
@@ -96,4 +88,15 @@ footer {
     background-color: rgba(35, 39, 42, 0.8);
     color: #aaa;
     font-size: 1.1em;
+}
+
+/* Total Members, Online, Offline ホバー時のみアニメーション */
+.stat span {
+    display: inline-block; /* アニメーションを適用するためにインラインブロック化 */
+    transition: transform 0.3s ease, color 0.3s ease; /* 色とサイズの変化をスムーズに */
+}
+
+.stat:hover span {
+    transform: translateY(-5px); /* 上方向に少し移動 */
+    color: #7289da; /* 色を強調 */
 }
