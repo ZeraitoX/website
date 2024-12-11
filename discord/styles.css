@@ -1,3 +1,4 @@
+/* 全体の設定 */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,59 +8,92 @@ body {
     text-align: center;
     overflow-x: hidden;
     font-size: 18px; /* 全体のフォントサイズを拡大 */
+    animation: backgroundFade 10s infinite; /* 背景のフェードアニメーション */
+}
+
+/* 背景色をフェードするアニメーション */
+@keyframes backgroundFade {
+    0% { background-color: #000000; }
+    50% { background-color: #1a1a1a; }
+    100% { background-color: #000000; }
 }
 
 header {
-    padding: 30px 15px; /* ヘッダーの余白を広げる */
+    padding: 30px 15px;
     background-color: rgba(114, 137, 218, 0.8);
     text-align: center;
     border-bottom: 2px solid #7289da;
-    font-size: 1.5em; /* ヘッダーのフォントサイズを拡大 */
+    font-size: 1.5em;
+    animation: headerGlow 5s infinite alternate; /* ヘッダーの輝きアニメーション */
+}
+
+/* ヘッダーが輝くアニメーション */
+@keyframes headerGlow {
+    0% { box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(114, 137, 218, 1); }
 }
 
 .container {
-    max-width: 1400px; /* コンテナの幅を広げる */
+    max-width: 1400px;
     margin: 50px auto;
     padding: 30px;
     background: rgba(35, 39, 42, 0.9);
     border-radius: 15px;
+    animation: containerSlideIn 1.5s ease-out; /* コンテナのスライドインアニメーション */
+}
+
+/* コンテナが左からスライドインするアニメーション */
+@keyframes containerSlideIn {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
 }
 
 .stats {
     display: flex;
     justify-content: space-evenly;
-    gap: 30px; /* 各要素間の間隔を広げる */
+    gap: 30px;
     margin-bottom: 40px;
 }
 
 .stat {
     flex: 1;
-    min-width: 200px; /* 各カードの最小幅を広げる */
-    padding: 30px; /* カード内の余白を広げる */
+    min-width: 200px;
+    padding: 30px;
     text-align: center;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); /* ボックスシャドウを強調 */
-    font-size: 1.2em; /* カードのフォントサイズを拡大 */
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6);
+    font-size: 1.2em;
+    animation: statPulse 3s infinite; /* ボックスが脈動するアニメーション */
+}
+
+/* ボックスが脈動するアニメーション */
+@keyframes statPulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); }
+    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(114, 137, 218, 1); }
+    100% { transform: scale(1); box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); }
 }
 
 .cta a {
     text-decoration: none;
     background-color: #7289da;
     color: #ffffff;
-    padding: 15px 25px; /* ボタンを大きくする */
+    padding: 15px 25px;
     border-radius: 8px;
-    font-size: 1.5em; /* ボタン内のフォントサイズを拡大 */
+    font-size: 1.5em;
     transition: background-color 0.3s ease;
+    animation: buttonGlow 2s infinite alternate; /* ボタンが光るアニメーション */
 }
 
-.cta a:hover {
-    background-color: #5b6eae;
+/* ボタンが光るアニメーション */
+@keyframes buttonGlow {
+    0% { box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(114, 137, 218, 1); }
 }
 
 footer {
     padding: 20px;
     background-color: rgba(35, 39, 42, 0.8);
     color: #aaa;
-    font-size: 1.1em; /* フッターのフォントサイズを拡大 */
+    font-size: 1.1em;
 }
