@@ -1,37 +1,11 @@
-/* 全体のネオン感を強化 */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #000000;
-    color: #ffffff;
-    text-align: center;
-    overflow-x: hidden;
-    font-size: 18px;
+/* 統計セクションのデザイン */
+.stats {
+    display: flex;
+    justify-content: space-evenly; /* 配置を元のまま維持 */
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
-/* ヘッダーにアニメーションとネオン効果を追加 */
-header {
-    padding: 30px 15px;
-    background-color: rgba(114, 137, 218, 0.8);
-    text-align: center;
-    border-bottom: 2px solid #7289da;
-    font-size: 1.5em;
-    animation: neonGlow 2s infinite alternate; /* アニメーション追加 */
-    box-shadow: 0 0 15px rgba(114, 137, 218, 0.8), 0 0 30px rgba(114, 137, 218, 0.5);
-}
-
-/* コンテナのネオンエフェクト */
-.container {
-    max-width: 1400px;
-    margin: 50px auto;
-    padding: 30px;
-    background: rgba(35, 39, 42, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(114, 137, 218, 0.6), 0 0 50px rgba(114, 137, 218, 0.4);
-}
-
-/* 各カードのネオン効果 */
 .stat {
     flex: 1;
     min-width: 200px;
@@ -40,56 +14,45 @@ header {
     background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* アニメーションの追加 */
+    font-size: 1.2em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* アニメーションの位置基準を固定 */
 }
 
+.stat h2 {
+    font-size: 2em; /* 数値を大きく強調 */
+    margin: 10px 0;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(114, 137, 218, 0.8), 0 0 20px rgba(114, 137, 218, 0.6);
+}
+
+.stat p {
+    margin: 0;
+    color: #aaa;
+    font-size: 1em;
+    text-shadow: 0 0 5px rgba(114, 137, 218, 0.4);
+}
+
+/* ホバーアクションでネオンを強調 */
 .stat:hover {
-    transform: scale(1.1); /* ホバー時に拡大 */
+    transform: scale(1.1);
     box-shadow: 0 0 30px rgba(114, 137, 218, 0.8), 0 0 60px rgba(114, 137, 218, 0.6);
 }
 
-/* CTAボタンのネオン効果 */
-.cta a {
-    text-decoration: none;
-    background-color: #7289da;
-    color: #ffffff;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-size: 1.5em;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
-}
-
-.cta a:hover {
-    background-color: #5b6eae;
-    box-shadow: 0 0 25px rgba(114, 137, 218, 0.8), 0 0 50px rgba(114, 137, 218, 0.6);
-}
-
-/* フッターにネオンとフェードイン効果 */
-footer {
-    padding: 20px;
-    background-color: rgba(35, 39, 42, 0.8);
-    color: #aaa;
-    font-size: 1.1em;
-    animation: fadeIn 2s ease-in-out;
-    box-shadow: 0 0 15px rgba(114, 137, 218, 0.4);
-}
-
-/* キーフレームアニメーションの追加 */
-@keyframes neonGlow {
+/* アニメーションを追加 */
+@keyframes neonPulse {
     0% {
         box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
     }
+    50% {
+        box-shadow: 0 0 25px rgba(114, 137, 218, 0.8), 0 0 50px rgba(114, 137, 218, 0.6);
+    }
     100% {
-        box-shadow: 0 0 30px rgba(114, 137, 218, 0.8), 0 0 60px rgba(114, 137, 218, 0.6);
+        box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* 統計ボックスにアニメーションを適用 */
+.stat {
+    animation: neonPulse 3s infinite;
 }
