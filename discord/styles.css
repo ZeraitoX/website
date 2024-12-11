@@ -1,3 +1,4 @@
+/* 全体のネオン感を強化 */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -6,60 +7,89 @@ body {
     color: #ffffff;
     text-align: center;
     overflow-x: hidden;
-    font-size: 18px; /* 全体のフォントサイズを拡大 */
+    font-size: 18px;
 }
 
+/* ヘッダーにアニメーションとネオン効果を追加 */
 header {
-    padding: 30px 15px; /* ヘッダーの余白を広げる */
+    padding: 30px 15px;
     background-color: rgba(114, 137, 218, 0.8);
     text-align: center;
     border-bottom: 2px solid #7289da;
-    font-size: 1.5em; /* ヘッダーのフォントサイズを拡大 */
+    font-size: 1.5em;
+    animation: neonGlow 2s infinite alternate; /* アニメーション追加 */
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.8), 0 0 30px rgba(114, 137, 218, 0.5);
 }
 
+/* コンテナのネオンエフェクト */
 .container {
-    max-width: 1400px; /* コンテナの幅を広げる */
+    max-width: 1400px;
     margin: 50px auto;
     padding: 30px;
     background: rgba(35, 39, 42, 0.9);
     border-radius: 15px;
+    box-shadow: 0 0 20px rgba(114, 137, 218, 0.6), 0 0 50px rgba(114, 137, 218, 0.4);
 }
 
-.stats {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 30px; /* 各要素間の間隔を広げる */
-    margin-bottom: 40px;
-}
-
+/* 各カードのネオン効果 */
 .stat {
     flex: 1;
-    min-width: 200px; /* 各カードの最小幅を広げる */
-    padding: 30px; /* カード内の余白を広げる */
+    min-width: 200px;
+    padding: 30px;
     text-align: center;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6); /* ボックスシャドウを強調 */
-    font-size: 1.2em; /* カードのフォントサイズを拡大 */
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* アニメーションの追加 */
 }
 
+.stat:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+    box-shadow: 0 0 30px rgba(114, 137, 218, 0.8), 0 0 60px rgba(114, 137, 218, 0.6);
+}
+
+/* CTAボタンのネオン効果 */
 .cta a {
     text-decoration: none;
     background-color: #7289da;
     color: #ffffff;
-    padding: 15px 25px; /* ボタンを大きくする */
+    padding: 15px 25px;
     border-radius: 8px;
-    font-size: 1.5em; /* ボタン内のフォントサイズを拡大 */
-    transition: background-color 0.3s ease;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
 }
 
 .cta a:hover {
     background-color: #5b6eae;
+    box-shadow: 0 0 25px rgba(114, 137, 218, 0.8), 0 0 50px rgba(114, 137, 218, 0.6);
 }
 
+/* フッターにネオンとフェードイン効果 */
 footer {
     padding: 20px;
     background-color: rgba(35, 39, 42, 0.8);
     color: #aaa;
-    font-size: 1.1em; /* フッターのフォントサイズを拡大 */
+    font-size: 1.1em;
+    animation: fadeIn 2s ease-in-out;
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.4);
+}
+
+/* キーフレームアニメーションの追加 */
+@keyframes neonGlow {
+    0% {
+        box-shadow: 0 0 15px rgba(114, 137, 218, 0.6), 0 0 30px rgba(114, 137, 218, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(114, 137, 218, 0.8), 0 0 60px rgba(114, 137, 218, 0.6);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
