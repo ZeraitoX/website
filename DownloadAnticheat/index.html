@@ -1,65 +1,144 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サイトから離れられないページ</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ダウンロードサイト</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .fullscreen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .download-links {
+      margin-top: 20px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .download-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
+  <div class="fullscreen" id="fullscreen-container">
+    <h1>ようこそ、ダウンロードセンターへ</h1>
+    <p>以下のリンクからファイルをダウンロードできます。</p>
 
-    <h1>あなたはこのページから離れられません！</h1>
-    <p>ページの操作が制限されています。</p>
+    <!-- ダウンロードリンクリスト -->
+    <div class="download-links">
+      <a href="file1.zip" download class="download-btn" onclick="unlockAccess()">ファイル1をダウンロード</a>
+      <a href="file2.zip" download class="download-btn" onclick="unlockAccess()">ファイル2をダウンロード</a>
+      <a href="file3.zip" download class="download-btn" onclick="unlockAccess()">ファイル3をダウンロード</a>
+    </div>
 
-    <a href="data:text/html;charset=utf-8,<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>サイトから離れられないページ</title><link rel='stylesheet' href='styles.css'></head><body><h1>あなたはこのページから離れられません！</h1><p>ページの操作が制限されています。</p><script>document.addEventListener('keydown',function(event){if(event.key==='F11'){event.preventDefault();alert('F11キー（全画面表示）は無効です。');}if(event.altKey&&event.key==='F4'){event.preventDefault();alert('Alt + F4（タブを閉じる）は無効です。');}if(event.ctrlKey){event.preventDefault();alert('Ctrlキーは無効です。');}});window.onbeforeunload = function() {return 'ページを離れますか？';};</script></body></html>" download="locked_page.html" class="download-btn">ダウンロード</a>
+    <!-- 注意書き -->
+    <p>ダウンロードリンクをクリックするまで、機能の一部が制限されています。</p>
+  </div>
 
-    <script>
-        // ブラウザの戻るボタンを無効化
-        window.history.forward();
-        window.onload = function() {
-            setTimeout(function() {
-                window.history.forward();
-            }, 0);
-        };
+  <script>
+    // 制限解除関数
+    function unlockAccess() {
+      document.removeEventListener('keydown', blockKeys);
+      alert("制限が解除されました！");
+    }
 
-        // リロードやページ遷移を無効化
-        window.onbeforeunload = function() {
-            return "ページを離れますか？";
-        };
+    // キー入力をブロック
+    function blockKeys(event) {
+      event.preventDefault();
+    }
 
-        // キー操作無効化
-        document.addEventListener('keydown', function(event) {
-            // F11キー（全画面表示）を無効化
-            if (event.key === "F11") {
-                event.preventDefault();
-                alert("F11キー（全画面表示）は無効です。");
-            }
+    // 初期化: キー入力を制限
+    document.addEventListener('keydown', blockKeys);
 
-            // Alt + F4（タブを閉じる）を無効化
-            if (event.altKey && event.key === "F4") {
-                event.preventDefault();
-                alert("Alt + F4（タブを閉じる）は無効です。");
-            }
+    // フルスクリーンモードに移行し、マウスをロックする関数
+    function enterFullscreenAndLockMouse() {
+      // フルスクリーンモードに移行
+      document.documentElement.requestFullscreen().then(() => {
+        // フルスクリーンが成功したらマウスをロック
+        document.body.requestPointerLock();
+      }).catch((err) => {
+        console.log(`フルスクリーンに失敗: ${err.message}`);
+      });
+    }
 
-            // Ctrl + W（タブを閉じる）を無効化
-            if (event.ctrlKey && event.key === "w") {
-                event.preventDefault();
-                alert("Ctrl + W（タブを閉じる）は無効です。");
-            }
+    // マウス移動を監視してロックされた時の挙動
+    document.addEventListener('mousemove', (event) => {
+      if (document.pointerLockElement === document.body) {
+        let movementX = event.movementX || 0;
+        let movementY = event.movementY || 0;
+        console.log("マウス移動 - X:", movementX, "Y:", movementY);
+      }
+    });
 
-            // Ctrl + R（リロード）を無効化
-            if (event.ctrlKey && event.key === "r") {
-                event.preventDefault();
-                alert("Ctrl + R（リロード）は無効です。");
-            }
+    // マウスロックの解除を監視
+    document.addEventListener('pointerlockchange', () => {
+      if (document.pointerLockElement !== document.body) {
+        console.log("マウスロックが解除されました");
+      }
+    });
 
-            // F5（リロード）を無効化
-            if (event.key === "F5") {
-                event.preventDefault();
-                alert("F5（リロード）は無効です。");
-            }
-        });
-    </script>
+    // 初回クリックでフルスクリーンにし、マウスをロックする
+    document.getElementById("fullscreen-container").addEventListener("click", function() {
+      enterFullscreenAndLockMouse();
+    });
 
+    // Escキーを無効化する
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape" || event.keyCode === 27) {
+        event.preventDefault(); // Escキーのデフォルト動作を無効化
+        console.log("Escキーが押されましたが、無効化されました。");
+      }
+    });
+
+    // フルスクリーン解除を監視して、解除されたら再度フルスクリーンに戻る
+    document.addEventListener("fullscreenchange", function() {
+      if (!document.fullscreenElement) {
+        console.log("フルスクリーンが解除されました。再度フルスクリーンを試行します...");
+        setTimeout(() => {
+          enterFullscreenAndLockMouse();
+        }, 1000); // 1秒後に再度フルスクリーンを試行
+      }
+    });
+
+    // フルスクリーンエラーを監視する
+    document.addEventListener("fullscreenerror", function() {
+      console.log("フルスクリーンエラーが発生しました。");
+    });
+
+    // キーボードを完全にロックする
+    navigator.keyboard.lock();
+    document.onkeydown = function (e) {
+      return false;
+    };
+  </script>
 </body>
 </html>
