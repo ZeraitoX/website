@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft-like Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        #menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
+        .button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #444;
+            color: white;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>Minecraft-like Game</h1>
+        <button class="button" id="survival">Survival Mode</button>
+        <button class="button" id="creative">Creative Mode</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r139/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
 
