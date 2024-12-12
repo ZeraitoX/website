@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宇宙の進化</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #000;
+            overflow: hidden;
+        }
+        #message {
+            font-size: 3em;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            transition: color 0.5s ease;
+        }
+        .explode {
+            animation: explode 1s forwards;
+        }
+        .rotate {
+            animation: rotate 1s linear infinite;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Hello</div>
+    <script>
+        // 宇宙の進化に基づいたメッセージと色
+        const messages = [
+            { text: "Big Bang", color: "#FF0000" },
+            { text: "Expansion", color: "#FF6347" },
+            { text: "Formation of Elements", color: "#FF4500" },
+            { text: "First Stars", color: "#FFD700" },
+            { text: "Supernova", color: "#1E90FF" },
+            { text: "Formation of Galaxies", color: "#32CD32" },
+            { text: "Solar System", color: "#8A2BE2" },
+            { text: "Earth", color: "#DC143C" },
+            { text: "First Life", color: "#FF1493" },
+            { text: "Multicellular Life", color: "#FFFF00" },
+            // さらに続く（最大1000段階のメッセージ）
+        ];
+
+        // 1000個のメッセージを作成する
+        for (let i = messages.length; i < 1000; i++) {
+            messages.push({
+                text: `Stage ${i + 1}`,
+                color: `hsl(${(i * 137.5) % 360}, 100%, 50%)`,  // 色相環を使って色を循環させる
+            });
+        }
+
+        const messageElement = document.getElementById("message");
+        let messageIndex = 0;
+
+        // メッセージを進化させる
+        function evolveMessage() {
+            if (messageIndex < messages.length - 1) {
+                messageIndex++;
+            } else {
+                messageIndex = 0; // 進化をループ
+            }
+
+            // メッセージを更新
+            messageElement.textContent = messages[messageIndex].text;
+
+            // メッセージの色を変更
+            messageElement.style.color = messages[messageIndex].color;
+        }
+
+        // エンターキーを押したときの反応
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                // メッセージの進化
+                evolveMessage();
+
+                // ビッグバン効果（爆発アニメーション）
+                messageElement.classList.add("explode");
+                setTimeout(() => {
+                    messageElement.classList.remove("explode");
+                }, 1000);
+
+                // メッセージを回転させる
+                messageElement.classList.add("rotate");
+                setTimeout(() => {
+                    messageElement.classList.remove("rotate");
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
