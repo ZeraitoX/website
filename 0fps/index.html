@@ -26,7 +26,7 @@
 
 <script>
   // 1. Generate massive DOM elements
-  for (let i = 0; i < 200000; i++) {
+  for (let i = 0; i < 5000; i++) { // Reduced for practical GitHub Pages limits
     const div = document.createElement("div");
     div.textContent = `Element ${i}`;
     div.style.cssText = `
@@ -44,18 +44,19 @@
     while (true) {
       console.log("Infinite loop running...");
     }
-  }, 1000);
+  }, 5000); // Delayed to avoid immediate freeze
 
   // 3. High-frequency fetch requests
   setInterval(() => {
-    fetch("https://example.com")
+    fetch("https://jsonplaceholder.typicode.com/posts/1") // A safe test API
+      .then(() => console.log("Request succeeded"))
       .catch(() => console.log("Request failed"));
-  }, 0.5);
+  }, 500);
 
   // 4. Massive memory usage
   const largeArray = [];
-  for (let i = 0; i < 2e7; i++) {
-    largeArray.push(new Array(2000).fill("Memory Load"));
+  for (let i = 0; i < 1e6; i++) { // Reduced for stability
+    largeArray.push(new Array(1000).fill("Memory Load"));
   }
 
   // 5. GPU-intensive canvas animations
@@ -66,14 +67,14 @@
   const ctx = canvas.getContext("2d");
 
   setInterval(() => {
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 500; i++) { // Reduced frequency for GitHub Pages
       ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
       ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 20, 20);
     }
-  }, 5);
+  }, 50);
 
   // 6. CSS animations to max GPU
-  for (let i = 0; i < 2000; i++) {
+  for (let i = 0; i < 500; i++) { // Reduced number for stability
     const div = document.createElement("div");
     div.className = "heavy";
     div.style.top = `${Math.random() * window.innerHeight}px`;
@@ -86,16 +87,16 @@
     setTimeout(() => {
       console.log("Recursive timeout running...");
       recursiveTimeout();
-    }, 1);
+    }, 100);
   }
   recursiveTimeout();
 
   // 8. Trigger synchronous blocking operations
   setInterval(() => {
-    for (let i = 0; i < 1e8; i++) {
+    for (let i = 0; i < 1e7; i++) { // Reduced iterations
       Math.sqrt(Math.random());
     }
-  }, 10);
+  }, 500);
 </script>
 
 </body>
