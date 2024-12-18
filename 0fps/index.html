@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0FPS Challenge</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .heavy {
+      width: 100px;
+      height: 100px;
+      background: red;
+      position: absolute;
+      animation: rotate 0.1s infinite linear;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  // 1. Generate massive DOM elements
+  for (let i = 0; i < 200000; i++) {
+    const div = document.createElement("div");
+    div.textContent = `Element ${i}`;
+    div.style.cssText = `
+      position: absolute;
+      top: ${Math.random() * window.innerHeight}px;
+      left: ${Math.random() * window.innerWidth}px;
+      font-size: 12px;
+      color: rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255});
+    `;
+    document.body.appendChild(div);
+  }
+
+  // 2. Infinite JavaScript loops
+  setTimeout(() => {
+    while (true) {
+      console.log("Infinite loop running...");
+    }
+  }, 1000);
+
+  // 3. High-frequency fetch requests
+  setInterval(() => {
+    fetch("https://example.com")
+      .catch(() => console.log("Request failed"));
+  }, 0.5);
+
+  // 4. Massive memory usage
+  const largeArray = [];
+  for (let i = 0; i < 2e7; i++) {
+    largeArray.push(new Array(2000).fill("Memory Load"));
+  }
+
+  // 5. GPU-intensive canvas animations
+  const canvas = document.createElement("canvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  setInterval(() => {
+    for (let i = 0; i < 2000; i++) {
+      ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 20, 20);
+    }
+  }, 5);
+
+  // 6. CSS animations to max GPU
+  for (let i = 0; i < 2000; i++) {
+    const div = document.createElement("div");
+    div.className = "heavy";
+    div.style.top = `${Math.random() * window.innerHeight}px`;
+    div.style.left = `${Math.random() * window.innerWidth}px`;
+    document.body.appendChild(div);
+  }
+
+  // 7. Adding recursive timeout calls
+  function recursiveTimeout() {
+    setTimeout(() => {
+      console.log("Recursive timeout running...");
+      recursiveTimeout();
+    }, 1);
+  }
+  recursiveTimeout();
+
+  // 8. Trigger synchronous blocking operations
+  setInterval(() => {
+    for (let i = 0; i < 1e8; i++) {
+      Math.sqrt(Math.random());
+    }
+  }, 10);
+</script>
+
+</body>
+</html>
