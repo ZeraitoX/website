@@ -1,1 +1,30 @@
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(0deg, #000, #fff);
+    animation: bg-color 0.5s infinite alternate;
+  }
+
+  @keyframes bg-color {
+    0% { background: linear-gradient(0deg, #000, #fff); }
+    100% { background: linear-gradient(360deg, #fff, #000); }
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg) scale(1) skew(0deg); }
+    50% { transform: rotate(180deg) scale(1.5) skew(10deg); }
+    100% { transform: rotate(360deg) scale(1) skew(0deg); }
+  }
+
+  .heavy {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, red, yellow);
+    position: absolute;
+    animation: rotate 0.1s infinite linear;
+    box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.8);
+    border-radius: 50%;
+  }
+</style>
 
