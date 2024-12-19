@@ -20,9 +20,12 @@
                 <h2 id="online-members">--</h2>
                 <p>Online</p>
             </div>
-            <div class="stat neon-box">
-                <h2 id="hacks-members">--</h2>
-                <p>Offline</p>
+            <div class="stat neon-box" id="details-button-container">
+                <button class="details-btn" onclick="toggleDetails()">View Details</button>
+                <div id="details-info" class="hidden">
+                    <p>Fuck You.</p>
+                    <!-- 追加の詳細情報をここに記入できます -->
+                </div>
             </div>
         </div>
         <div class="cta fade-in">
@@ -32,6 +35,20 @@
     <footer class="fade-in">
         <p>&copy; 2024 Buibui server!. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+
+    <script>
+        function toggleDetails() {
+            var details = document.getElementById("details-info");
+            
+            // 詳細情報が隠れていれば表示、表示されていれば隠す
+            if (details.classList.contains("hidden")) {
+                details.classList.remove("hidden");
+                details.classList.add("show");
+            } else {
+                details.classList.remove("show");
+                details.classList.add("hidden");
+            }
+        }
+    </script>
 </body>
 </html>
