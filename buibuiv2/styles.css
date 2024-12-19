@@ -1,1 +1,102 @@
+/* 全体の設定 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    overflow-x: hidden;
+    font-size: 18px; /* 全体のフォントサイズを拡大 */
+    animation: backgroundFade 10s infinite; /* 背景のフェードアニメーション */
+}
 
+/* 背景色をフェードするアニメーション */
+@keyframes backgroundFade {
+    0% { background-color: #000000; }
+    50% { background-color: #1a1a1a; }
+    100% { background-color: #000000; }
+}
+
+header {
+    padding: 30px 15px;
+    background-color: rgba(114, 137, 218, 0.8);
+    text-align: center;
+    border-bottom: 2px solid #7289da;
+    font-size: 1.5em;
+    animation: headerGlow 5s infinite alternate; /* ヘッダーの輝きアニメーション */
+}
+
+/* ヘッダーが輝くアニメーション */
+@keyframes headerGlow {
+    0% { box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(114, 137, 218, 1); }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(35, 39, 42, 0.9);
+    border-radius: 15px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.stat {
+    flex: 1;
+    min-width: 200px;
+    padding: 30px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(114, 137, 218, 0.6);
+    font-size: 1.2em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー用のトランジションを追加 */
+}
+
+/* ホバー時のアニメーション */
+.stat:hover {
+    transform: scale(1.05); /* 少し拡大 */
+    box-shadow: 0 0 25px rgba(114, 137, 218, 1); /* 光を強調 */
+}
+
+.cta a {
+    text-decoration: none;
+    background-color: #7289da;
+    color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease;
+    animation: buttonGlow 2s infinite alternate; /* ボタンが光るアニメーション */
+}
+
+/* ボタンが光るアニメーション */
+@keyframes buttonGlow {
+    0% { box-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(114, 137, 218, 1); }
+}
+
+footer {
+    padding: 20px;
+    background-color: rgba(35, 39, 42, 0.8);
+    color: #aaa;
+    font-size: 1.1em;
+}
+
+/* Total Members, Online, Offline ホバー時のみアニメーション */
+.stat span {
+    display: inline-block; /* アニメーションを適用するためにインラインブロック化 */
+    transition: transform 0.3s ease, color 0.3s ease; /* 色とサイズの変化をスムーズに */
+}
+
+.stat:hover span {
+    transform: translateY(-5px); /* 上方向に少し移動 */
+    color: #7289da; /* 色を強調 */
+}
