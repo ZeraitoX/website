@@ -100,3 +100,36 @@ footer {
     transform: translateY(-5px); /* 上方向に少し移動 */
     color: #7289da; /* 色を強調 */
 }
+
+/* 詳細ボタンのスタイル */
+.details-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #7289da;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.details-btn:hover {
+    background-color: #5b6e97;
+    transform: scale(1.1); /* ボタンを少し拡大 */
+}
+
+/* 非表示の詳細情報を初期状態で隠す */
+.hidden {
+    display: none;
+}
+
+/* 詳細情報を表示したときのスタイル */
+.show {
+    display: block;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(114, 137, 218, 0.6);
+}
