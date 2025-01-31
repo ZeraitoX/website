@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
-body {
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #0a0a0a;
+    background-color: #0a0a0a; /* 背景を黒 */
     color: white;
     font-family: 'Inter', sans-serif;
 }
@@ -40,6 +40,7 @@ main {
     align-items: center;
     height: 80vh;
     padding: 50px;
+    background: #0a0a0a; /* メイン部分も黒に */
 }
 
 .content {
@@ -88,4 +89,3 @@ p {
     max-width: 400px;
     filter: drop-shadow(0px 0px 20px #00c6a7);
 }
-
