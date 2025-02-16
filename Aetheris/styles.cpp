@@ -1,91 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-html, body {
+body {
     margin: 0;
     padding: 0;
-    background-color: #0a0a0a; /* 背景を黒 */
+    background-color: #121212;
     color: white;
-    font-family: 'Inter', sans-serif;
-}
-
-header {
+    font-family: Arial, sans-serif;
+    text-align: center;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 20px 50px;
-    background: black;
+    justify-content: center;
+    height: 100vh;
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 14px;
-}
-
-.purchase {
-    background-color: #00c6a7;
-    padding: 10px 15px;
-    border-radius: 5px;
-}
-
-main {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    height: 80vh;
-    padding: 50px;
-    background: #0a0a0a; /* メイン部分も黒に */
+    margin-bottom: 20px;
 }
 
-.content {
-    max-width: 50%;
+.logo img {
+    height: 120px;
 }
 
-h1 {
-    font-size: 48px;
-    margin: 0;
-}
-
-p {
-    font-size: 16px;
-    margin: 20px 0;
-    color: #bfbfbf;
-}
-
-.highlight {
-    background-color: #00c6a7;
-    padding: 5px;
-    border-radius: 5px;
-    color: black;
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
 }
 
 .buttons {
-    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-.btn {
-    background-color: #00c6a7;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.learn {
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-size: 16px;
     color: white;
     text-decoration: none;
-    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 160px;
 }
 
-.image img {
-    max-width: 400px;
-    filter: drop-shadow(0px 0px 20px #00c6a7);
+.download {
+    background-color: #4caf50;
+}
+
+.github {
+    background-color: #ffffff;
+    color: black;
+}
+
+.discord {
+    background-color: #7289da;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.button img {
+    height: 20px;
+    margin-right: 10px;
 }
