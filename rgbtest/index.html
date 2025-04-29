@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Color Wave Menu</title>
+  <style>
+    :root {
+      --speed: 4s;
+      --gradient: linear-gradient(to bottom, #1e90ff 0%, #00fa9a 100%);
+    }
+    body {
+      background: #1a1a1a;
+      font-family: 'Consolas', monospace;
+      padding: 2rem;
+      color: #ccc;
+    }
+    .controls {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .controls label {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+    .controls label span {
+      margin-right: 0.5rem;
+    }
+    .controls input[type="range"],
+    .controls input[type="number"] {
+      margin: 0 0.5rem;
+    }
+    .color-pickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+    .color-pickers label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.8rem;
+      align-items: center;
+    }
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 250px;
+    }
+    .menu li {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      padding: 0.2rem 0;
+      cursor: pointer;
+      background: var(--gradient);
+      background-size: 100% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: text-wave var(--speed) ease-in-out infinite;
+      text-shadow:
+        0 0 4px rgba(255,255,255,0.4),
+        0 0 8px currentColor,
+        0 0 16px currentColor;
+    }
+    .menu li:hover {
+      text-shadow:
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 24px currentColor;
+    }
+    @keyframes text-wave {
+      0%   { background-position: 0% 0%; }
+      50%  { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <label><span>Colors:</span>
+      <input type="range" id="countRange" min="2" max="6" value="3">
+      <input type="number" id="countNumber" min="2" max="6" value="3">
+    </label>
+    <label><span>Speed:</span>
+      <input type="range" id="speed" min="1" max="10" value="4">
+      <span id="speedValue">4s</span>
+    </label>
+  </div>
+  <div class="color-pickers" id="pickerContainer"></div>
+  <ul class="menu">
+    <li>interface proxima nova</li>
+    <li>inventory manager 0 0</li>
+    <li>inventory move vanilla</li>
+    <li>ambience unchanged</li>
+    <li>chest stealer 50 50</li>
+  </ul>
+  <script>
+    // State
+    let colors = ['#1e90ff', '#00fa9a', '#1e90ff'];
+    const pickerContainer = document.getElementById('pickerContainer');
+    const countRange = document.getElementById('countRange');
+    const countNumber = document.getElementById('countNumber');
+    const speedInput = document.getElementById('speed');
+    const speedValue = document.getElementById('speedValue');
+
+    function renderPickers() {
+      pickerContainer.innerHTML = '';
+      colors.forEach((col, idx) => {
+        const label = document.createElement('label');
+        label.innerHTML = `C${idx+1}:<input type="color" id="color${idx}" value="${col}">`;
+        pickerContainer.appendChild(label);
+        document.getElementById(`color${idx}`).addEventListener('input', updateGradient);
+      });
+    }
+
+    function updateGradient() {
+      const current = colors.map((_, i) => document.getElementById(`color${i}`).value);
+      const stops = current.map((c, i) => `${c} ${Math.round(i/(current.length-1)*100)}%`).join(', ');
+      const grad = `linear-gradient(to bottom, ${stops})`;
+      document.documentElement.style.setProperty('--gradient', grad);
+    }
+
+    function updateCount(val) {
+      const n = parseInt(val);
+      countRange.value = n;
+      countNumber.value = n;
+      if (n > colors.length) {
+        for (let i = colors.length; i < n; i++) {
+          colors.push(colors[i-1] || '#ffffff');
+        }
+      } else {
+        colors = colors.slice(0, n);
+      }
+      renderPickers();
+      updateGradient();
+    }
+
+    function updateSpeed() {
+      const val = speedInput.value + 's';
+      document.documentElement.style.setProperty('--speed', val);
+      speedValue.textContent = val;
+    }
+
+    countRange.addEventListener('input', e => updateCount(e.target.value));
+    countNumber.addEventListener('input', e => updateCount(e.target.value));
+    speedInput.addEventListener('input', updateSpeed);
+
+    updateCount(colors.length);
+    updateSpeed();
+  </script>
+</body>
+</html>
 
